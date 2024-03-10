@@ -1,0 +1,155 @@
+{% load static tailwind_tags %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    {% tailwind_css %}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-...replace_with_integrity_code_here...="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .profile-dropdown {
+        display: none;
+        background-color: #fff;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        transition: all 0.3s;
+      }
+
+      .profile:hover .profile-dropdown {
+        display: block;
+      }
+
+      .profile:hover .profile-dropdown {
+        background-color: #f9fafb;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-purple-600 p-4">
+      <div class="flex justify-between items-center">
+        <a href="{% url 'patient-records' %}">
+        <h1 class="text-white text-xl font-bold">
+          Electronic Management System
+        </h1>
+      </a>
+      <ul class="flex space-x-8">
+        <li><a href="#" class="p-4 rounded-md bg-purple-700 hover:bg-purple-600 text-white"><i class="fa fa-home"></i></a>
+        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-blue-700 hover:text-white">Features</a></li>
+        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-blue-700 hover:text-white">System updates</a></li>
+        
+        <!--notification-->
+        <div class="flex items-center">
+          <div class="profile relative mr-4">
+            
+            <img
+              src="{% static 'images/notification.png' %}"
+              alt="notification Image"
+              class="rounded-full w-10 h-10 cursor-pointer"
+            />
+            
+          </div>
+          <!--profile icon-->
+  <!--profile icon-->
+<div class="flex items-center">
+  <div class="profile relative mr-4">
+    <img
+      src="{% static 'images/user.png' %}"
+      alt="Profile Image"
+      class="rounded-full w-10 h-10 cursor-pointer"
+    />
+    <div class="profile-dropdown absolute shadow-md rounded-md py-2 right-0 mt-2 w-48">
+      <p class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">
+        <i class="fas fa-user mr-2"></i>{{ user.username }}
+      </p>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">View Profile</a>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">Update Profile</a>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">Reset Password</a>
+    </div>
+  </div>
+  <a class="bg-red-500 text-white py-2 px-4 rounded-md cursor-pointer" href="{% url 'user-logout' %}">Logout</a>
+</div>
+</div>
+    </nav>
+
+<!--card form-->
+<div class="container mx-auto mt-8">
+  <div class="card bg-white rounded-lg shadow-md p-8">
+      <h2 class="text-2xl font-bold mb-4"><i class="fas fa-pen-square text-blue-500"></i> Add New Patient</h2>
+      
+      <!-- Display messages -->
+      {% if messages %}
+          {% for message in messages %}
+              <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+              <script>
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Success!',
+                      text: '{{ message }}',
+                      confirmButtonText: 'OK'
+                  }).then(function () {
+                      window.location.href = '{% url 'view_all_patients' %}';
+                  });
+              </script>
+          {% endfor %}
+      {% endif %}
+      
+      <form id="add-patient-form" method="POST" class="grid grid-cols-4 gap-4">
+          {% csrf_token %} 
+          <table class="w-full">
+              <tr>
+                  {{ form.as_p }}
+              </tr>
+          </table>
+
+          <div class="col-span-4 flex justify-end mt-6 space-x-3">
+              <button id="submit-btn" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Add
+              </button>
+              <a href="{% url 'view_all_patients' %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                  Cancel
+              </a>
+          </div>
+      </form>
+  </div>
+</div>
+<!--ends here-->
+
+
+<!--DON'T TOUCH THE CODE BELOW, I REALLY SUFFERED BEFORE IT WORKED-->
+<!-- Include SweetAlerts JavaScript and CSS files -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Handle form submission with JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('add-patient-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Patient added successfully!',
+                confirmButtonText: 'OK'
+            }).then(function () {
+                // Redirect after user acknowledges the message
+                window.location.href = '{% url 'view_all_patients' %}';
+            });
+        });
+    });
+</script>
+    </body>
+    </html>
+    

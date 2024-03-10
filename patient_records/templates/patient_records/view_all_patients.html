@@ -1,0 +1,292 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    {% tailwind_css %}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-...replace_with_integrity_code_here...="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      /**pagination css**/
+      .btn-pagination {
+        padding: 0.5rem 1rem;
+        background-color: #4a90e2;
+        color: #ffffff;
+        border: none;
+        border-radius: 0.25rem;
+        transition: background-color 0.3s;
+        margin-right: 0.5rem; /* Add spacing here */
+    }
+    
+    .btn-pagination:hover {
+        background-color: #357db5;
+    }
+    /**profile **/
+      .profile-dropdown {
+        display: none;
+        background-color: #fff;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        transition: all 0.3s;
+      }
+
+      .profile:hover .profile-dropdown {
+        display: block;
+      }
+
+      .profile:hover .profile-dropdown {
+        background-color: #f9fafb;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-purple-600 p-4">
+      <div class="flex justify-between items-center">
+        <a href="{% url 'patient-records' %}">
+        <h1 class="text-white text-xl font-bold">
+          Electronic Management System
+        </h1>
+      </a>
+      <ul class="flex space-x-8">
+        <li><a href="#" class="p-4 rounded-md bg-purple-700 hover:bg-purple-600 text-white"><i class="fa fa-home"></i></a>
+        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-blue-700 hover:text-white">Features</a></li>
+        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-blue-700 hover:text-white">System updates</a></li>
+        
+        <!--notification-->
+        <div class="flex items-center">
+          <div class="profile relative mr-4">
+            
+            <img
+              src="{% static 'images/notification.png' %}"
+              alt="notification Image"
+              class="rounded-full w-10 h-10 cursor-pointer"
+            />
+            
+          </div>
+          <!--profile icon-->
+  <!--profile icon-->
+<div class="flex items-center">
+  <div class="profile relative mr-4">
+    <img
+      src="{% static 'images/user.png' %}"
+      alt="Profile Image"
+      class="rounded-full w-10 h-10 cursor-pointer"
+    />
+    <div class="profile-dropdown absolute shadow-md rounded-md py-2 right-0 mt-2 w-48">
+      <p class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">
+        <i class="fas fa-user mr-2"></i>{{ user.username }}
+      </p>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">View Profile</a>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">Update Profile</a>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">Reset Password</a>
+    </div>
+  </div>
+  <a class="bg-red-500 text-white py-2 px-4 rounded-md cursor-pointer" href="{% url 'user-logout' %}">Logout</a>
+</div>
+</div>
+    </nav>
+
+    <!--table-->
+    <!-- view_all_patients.html -->
+
+    <div class="container mx-auto mt-8">
+      <h2 class="text-2xl font-semibold mb-4">All Patients</h2>
+      <div>
+        <a href="{% url 'add' %}">
+          <button class="bg-gray-500 px-4 py-2 text-2xl text-white rounded">
+            <i class="fa-solid fa-plus text-purple-500 text-3xl"></i>
+            Add New Patient
+          </button>
+        </a>
+        <a href="{% url 'patient-records' %}">
+          <button class="bg-gray-500 px-4 py-2 text-2xl text-white rounded">
+            <i class="fa-solid fa-table-cells text-green-600 text-3xl"></i>
+            Go to dashboard
+          </button>
+        </a>
+        <a href="#">
+          <button class="bg-gray-500 px-4 py-2 text-2xl text-white rounded">
+            <i class="fa-solid fa-code-pull-request text-green-600 text-3xl"></i>
+            Request Service
+          </button>
+        </a>
+        <a href="#">
+          <button class="bg-gray-500 px-4 py-2 text-2xl text-white rounded">
+            <i class="fa-solid fa-download text-blue-950 text-3xl"></i>
+            Download Data
+          </button>
+        </a>
+      </div>
+      <!-- Search Input -->
+      <input
+        type="text"
+        id="searchInput"
+        class="mb-4 px-4 py-2 rounded-md border border-gray-300"
+        placeholder="Search patients..."
+      />
+
+      <table
+        class="min-w-full divide-y divide-gray-200 rounded-md shadow overflow-hidden w-full"
+      >
+        <!-- Table Header -->
+        <thead>
+          <tr>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+            >
+              Patient ID
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+            >
+              First Name
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+            >
+              Last Name
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+            >
+              Gender
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+            >
+              Phone
+            </th>
+            <th
+              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+            >
+              Client Status
+            </th>
+            <th
+              class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-extrabold bg-gray-50"
+            >
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Table Body -->
+        <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+          <!-- Table Rows (Rendered by Django) -->
+          {% for patient_record in patient_records %}
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              {{ patient_record.patient_id }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              {{ patient_record.first_name }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              {{ patient_record.last_name }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              {{ patient_record.gender }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              {{ patient_record.phone }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap">
+              {{ patient_record.client_status }}
+            </td>
+            <td
+              class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium"
+            >
+              <a
+                href="{% url 'view-patient' patient_record.id %}"
+                class="text-indigo-600 hover:text-indigo-900 mr-2"
+                ><i class="fa-solid fa-circle-info fa-lg"></i
+              ></a>
+              <a
+                href="{% url 'edit' patient_record.id %}"
+                class="text-blue-600 hover:text-blue-900 mr-2"
+                ><i class="fa-solid fa-pen-to-square fa-lg"></i
+              ></a>
+              <form
+                action="{% url 'delete' patient_record.id %}"
+                method="post"
+                class="inline"
+              >
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="text-red-600 hover:text-red-900"
+                  onclick="return confirm('Are you sure you want to delete this patient?')"
+                >
+                  <i class="fa-solid fa-trash fa-lg"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="bg-white shadow-md rounded-lg p-6">
+        
+        
+        <div class="pagination flex justify-between items-center">
+            <span class="step-links flex space-x-4">
+                {% if patient_records.has_previous %}
+                    <a href="?page=1" class="btn-pagination">&laquo; First</a>
+                    <a href="?page={{ patient_records.previous_page_number }}" class="btn-pagination">Previous</a>
+                {% else %}
+                    <span class="text-gray-400">&laquo; First</span>
+                    <span class="text-gray-400">Previous</span>
+                {% endif %}
+    
+                <span class="current text-gray-800 text-2xl font-bold">
+                    Page {{ patient_records.number }} of {{ patient_records.paginator.num_pages }}.
+                </span>
+    
+                {% if patient_records.has_next %}
+                    <a href="?page={{ patient_records.next_page_number }}" class="btn-pagination">Next</a>
+                    <a href="?page={{ patient_records.paginator.num_pages }}" class="btn-pagination">&raquo; Last</a>
+                {% else %}
+                    <span class="text-gray-400">Next</span>
+                    <span class="text-gray-400">&raquo; Last</span>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <br>
+      <!-- Pagination -->
+    <script>
+      // Search Functionality
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function () {
+          var searchQuery = this.value.toLowerCase();
+          var tableRows = document
+            .getElementById("tableBody")
+            .getElementsByTagName("tr");
+          for (var i = 0; i < tableRows.length; i++) {
+            var cells = tableRows[i].getElementsByTagName("td");
+            var found = false;
+            for (var j = 0; j < cells.length; j++) {
+              var cellText = cells[j].textContent.toLowerCase();
+              if (cellText.includes(searchQuery)) {
+                found = true;
+                break;
+              }
+            }
+            tableRows[i].style.display = found ? "" : "none";
+          }
+        });
+    </script>
+  </body>
+</html>

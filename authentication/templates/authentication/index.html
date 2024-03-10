@@ -1,0 +1,58 @@
+{% load static tailwind_tags %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    {% tailwind_css %}
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-purple-600 py-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-white text-2xl font-semibold">Your Website</h1>
+        <a href="{% url 'my-login' %}" class="text-white text-lg">Login</a>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mx-auto py-8">
+      <h1 class="text-3xl font-bold text-center mb-4">
+        Welcome to Our Website
+      </h1>
+      <p class="text-lg text-gray-700 text-center mb-8">
+        Discover amazing features and services
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-semibold mb-4">Service 1</h2>
+          <p class="text-gray-700">
+            Description of service 1. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-semibold mb-4">Service 2</h2>
+          <p class="text-gray-700">
+            Description of service 2. Sed do eiusmod tempor incididunt ut labore
+            et dolore magna aliqua.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-semibold mb-4">Service 3</h2>
+          <p class="text-gray-700">
+            Description of service 3. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
