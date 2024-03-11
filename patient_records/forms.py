@@ -4,7 +4,7 @@ from .models import PatientRecord
 class PatientRecordForm(forms.ModelForm):
     class Meta:
         model = PatientRecord
-        fields = ['patient_id', 'first_name', 'last_name', 'age', 'phone', 'gender', 'age_group', 'NHIS_number', 'client_type', 'client_status', 'occupation', 'address', 'date_of_visit', 'name_of_guardian', 'relation_with_guardian', 'contact_of_guardian']
+        fields = '__all__'
         labels = {
             'patient_id': 'Patient ID',
             'first_name': 'First Name',
@@ -37,7 +37,7 @@ class PatientRecordForm(forms.ModelForm):
         'client_status': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Client Status'}),
         'occupation': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Occupation'}),
         'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
-        'date_of_visit': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Date of Visit'}),
+        'date_of_visit': forms.DateInput(attrs={'class': 'form-input', 'placeholder': 'Date of Visit', 'type': 'date'}),
         'name_of_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name of Guardian'}),
         'relation_with_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Relation with Guardian'}),
         'contact_of_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contact of Guardian'}),

@@ -9,7 +9,7 @@
       class="bg-white p-4 rounded-md shadow-md flex items-center justify-between hover:bg-gray-100"
     >
       <div>
-        <i class="fas fa-user-md text-blue-500 text-3xl"></i>
+        <i class="fa-solid fa-bed-pulse text-red-500 text-3xl"></i>
         <h3 class="text-lg font-semibold mb-2">Add Patients</h3>
         <a
           class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
@@ -46,6 +46,96 @@
         >
       </div>
     </div>
+    <!-- Nurse Card -->
+    <div
+      class="bg-white p-4 rounded-md shadow-md flex items-center justify-between hover:bg-gray-100"
+    >
+      <div>
+        <i class="fa-solid fa-square-poll-horizontal text-blue-600 text-3xl"></i>
+        <h3 class="text-lg font-semibold mb-2">View and Generate Reports</h3>
+        <a
+          class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
+          href="#"
+          >Generate</a
+        >
+      </div>
+    </div>
   </div>
+    <!-- Bar Charts -->
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <!-- Gender Chart -->
+      <div class="bg-white p-4 rounded-md shadow-md">
+        <h3 class="text-lg font-semibold mb-4">Patients by Gender</h3>
+        <canvas id="genderChart" width="400" height="200"></canvas>
+      </div>
+      <!-- Client Status Chart -->
+      <div class="bg-white p-4 rounded-md shadow-md">
+        <h3 class="text-lg font-semibold mb-4">Patients by Client Status</h3>
+        <canvas id="clientStatusChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+  
+  <!-- JavaScript for Charts -->
+<!-- JavaScript for Charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Gender Chart Data
+  var genderData = {{ gender_data|safe }};
+  var genderLabels = genderData.map(item => item.gender);
+  var genderCounts = genderData.map(item => item.count);
+
+  // Client Status Chart Data
+  var clientStatusData = {{ client_status_data|safe }};
+  var clientStatusLabels = clientStatusData.map(item => item.client_status);
+  var clientStatusCounts = clientStatusData.map(item => item.count);
+
+  // Render Gender Chart
+  var genderCtx = document.getElementById('genderChart').getContext('2d');
+  var genderChart = new Chart(genderCtx, {
+    type: 'line', // Change type to 'line' for column chart
+    data: {
+      labels: genderLabels,
+      datasets: [{
+        label: 'Number of Patients',
+        data: genderCounts,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  // Render Client Status Chart
+  var clientStatusCtx = document.getElementById('clientStatusChart').getContext('2d');
+  var clientStatusChart = new Chart(clientStatusCtx, {
+    type: 'line', // Change type to 'line' for column chart
+    data: {
+      labels: clientStatusLabels,
+      datasets: [{
+        label: 'Number of Patients',
+        data: clientStatusCounts,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
 </div>
 {% endblock %}

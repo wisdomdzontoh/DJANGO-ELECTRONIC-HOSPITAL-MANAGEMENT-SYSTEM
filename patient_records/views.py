@@ -7,11 +7,9 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.db.models import Count
+from datetime import datetime
 
-
-@login_required(login_url="authentication:my-login")  
-def index(request):
-    return render(request, 'patient_records/index.html')
 
 @login_required(login_url="authentication:my-login")
 def view_all_patients(request):
@@ -27,8 +25,7 @@ def view_patient(request, id):
     return render(request, 'patient_records/view_patient.html', {'patient_record': patient_record})
 
 
-# Add a new patient record
-@login_required(login_url="authentication:my-login") 
+# Add a new patient record 
 @login_required(login_url="authentication:my-login") 
 def add(request):
     if request.method == 'POST':
@@ -36,23 +33,21 @@ def add(request):
         if form.is_valid():
             form.instance.last_updated = timezone.now()  # Set the last_updated field to the current date and time
             form.save()
-            messages.success(request, 'Patient added successfully.')
             return redirect('view_all_patients')
     else:
         form = PatientRecordForm()
-    return render(request, 'patient_records/add.html', {
-        'form': form
-    })
+    return render(request, 'patient_records/add.html', {'form': form})
 
-
+#edit function to edit and update
 @login_required(login_url="authentication:my-login") 
 def edit(request, id):
     patient_record = PatientRecord.objects.get(pk=id)
     if request.method == 'POST':
         form = PatientRecordForm(request.POST, instance=patient_record)
         if form.is_valid():
+            # Set the last_updated field to the current date and time
+            patient_record.last_updated = timezone.now()
             form.save()
-            messages.success(request, 'Patient record updated successfully.')
             return redirect('view_all_patients')
     else:
         form = PatientRecordForm(instance=patient_record)
@@ -66,3 +61,30 @@ def delete(request, id):
         patient_record = PatientRecord.objects.get(pk=id)
         patient_record.delete()
     return redirect('view_all_patients')
+
+
+# dashboard function to display data
+@login_required(login_url="authentication:my-login") 
+def index(request):
+    # Get the current month and year
+    current_month = datetime.now().month
+    current_year = datetime.now().year
+
+    # Query to count male and female patients for the current month
+    gender_counts = PatientRecord.objects.filter(date_of_visit__month=current_month, date_of_visit__year=current_year) \
+                        .values('gender') \
+                        .annotate(count=Count('id'))
+
+    # Query to count insured and non-insured patients for the current month
+    client_status_counts = PatientRecord.objects.filter(date_of_visit__month=current_month, date_of_visit__year=current_year) \
+                                .values('client_status') \
+                                .annotate(count=Count('id'))
+
+    # Prepare data for the bar chart
+    gender_data = [{'gender': item['gender'], 'count': item['count']} for item in gender_counts]
+    client_status_data = [{'client_status': item['client_status'], 'count': item['count']} for item in client_status_counts]
+
+    return render(request, 'patient_records/index.html', {
+        'gender_data': gender_data,
+        'client_status_data': client_status_data
+    })

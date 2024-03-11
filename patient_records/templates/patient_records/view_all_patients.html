@@ -56,13 +56,13 @@
       <div class="flex justify-between items-center">
         <a href="{% url 'patient-records' %}">
         <h1 class="text-white text-xl font-bold">
-          Electronic Management System
+          DWM HEALTH MANAGEMENT SYSTEM
         </h1>
       </a>
       <ul class="flex space-x-8">
-        <li><a href="#" class="p-4 rounded-md bg-purple-700 hover:bg-purple-600 text-white"><i class="fa fa-home"></i></a>
-        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-blue-700 hover:text-white">Features</a></li>
-        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-blue-700 hover:text-white">System updates</a></li>
+        <li><a href="{% url 'patient-records' %}" class="p-4 rounded-md bg-purple-700 hover:bg-purple-600 text-white"><i class="fa fa-home"></i></a>
+          <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-yellow-300 hover:text-white">Features</a></li>
+          <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-yellow-300 hover:text-white">System updates</a></li>
         
         <!--notification-->
         <div class="flex items-center">
@@ -166,7 +166,7 @@
             <th
               class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
             >
-              Phone
+              Date of Visit
             </th>
             <th
               class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
@@ -199,7 +199,7 @@
               {{ patient_record.gender }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">
-              {{ patient_record.phone }}
+              {{ patient_record.date_of_visit }}
             </td>
             <td class="px-6 py-4 whitespace-no-wrap">
               {{ patient_record.client_status }}
@@ -210,13 +210,13 @@
               <a
                 href="{% url 'view-patient' patient_record.id %}"
                 class="text-indigo-600 hover:text-indigo-900 mr-2"
-                ><i class="fa-solid fa-circle-info fa-lg"></i
+                ><i class="fa-solid fa-circle-info fa-2x"></i
               ></a>
               <a
                 href="{% url 'edit' patient_record.id %}"
                 class="text-blue-600 hover:text-blue-900 mr-2"
-                ><i class="fa-solid fa-pen-to-square fa-lg"></i
-              ></a>
+                ><i class="fa-solid fa-pen-to-square fa-2x"></i>
+              </a>
               <form
                 action="{% url 'delete' patient_record.id %}"
                 method="post"
@@ -228,7 +228,7 @@
                   class="text-red-600 hover:text-red-900"
                   onclick="return confirm('Are you sure you want to delete this patient?')"
                 >
-                  <i class="fa-solid fa-trash fa-lg"></i>
+                  <i class="fa-solid fa-trash fa-2x"></i>
                 </button>
               </form>
             </td>

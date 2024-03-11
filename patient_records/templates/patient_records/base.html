@@ -1,4 +1,3 @@
-
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
@@ -42,13 +41,13 @@
       <div class="flex justify-between items-center">
         <a href="{% url 'patient-records' %}">
         <h1 class="text-white text-xl font-bold">
-          Electronic Management System
+          DWM HEALTH MANAGEMENT SYSTEM
         </h1>
       </a>
       <ul class="flex space-x-8">
-        <li><a href="#" class="p-4 rounded-md bg-purple-700 hover:bg-purple-600 text-white"><i class="fa fa-home"></i></a>
-        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-blue-700 hover:text-white">Features</a></li>
-        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-blue-700 hover:text-white">System updates</a></li>
+        <li><a href="{% url 'patient-records' %}" class="p-4 rounded-md bg-purple-700 hover:bg-purple-600 text-white"><i class="fa fa-home"></i></a>
+        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-yellow-300 hover:text-white">Features</a></li>
+        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-yellow-300 hover:text-white">System updates</a></li>
         
         <!--notification-->
         <div class="flex items-center">
@@ -61,7 +60,6 @@
             />
             
           </div>
-          <!--profile icon-->
   <!--profile icon-->
 <div class="flex items-center">
   <div class="profile relative mr-4">
@@ -83,7 +81,6 @@
 </div>
 </div>
     </nav>
-
-    <h2 class="text-2xl font-bold mb-4">Health Information</h2>
+    <h2 class="text-2xl font-bold mb-4 text-center">Welcom to the Health Information Department</h2>
     {% block body %}
         {% endblock %}
