@@ -122,12 +122,21 @@
             Request Service
           </button>
         </a>
-        <a href="#">
+        <a href="{% url 'download_data' 'csv' %}">
           <button class="bg-gray-500 px-4 py-2 text-2xl text-white rounded">
-            <i class="fa-solid fa-download text-blue-950 text-3xl"></i>
-            Download Data
+              <i class="fa-solid fa-download text-blue-950 text-3xl"></i>
+              Download CSV
           </button>
-        </a>
+      </a>
+      
+      <a href="{% url 'download_data' 'excel' %}">
+          <button class="bg-gray-500 px-4 py-2 text-2xl text-white rounded">
+              <i class="fa-solid fa-download text-blue-950 text-3xl"></i>
+              Download Excel
+          </button>
+      </a>
+      
+        
       </div>
       <!-- Search Input -->
       <input

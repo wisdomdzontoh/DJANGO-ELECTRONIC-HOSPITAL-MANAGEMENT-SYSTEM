@@ -6,20 +6,6 @@ widget_tweaks %} {% block body %}
     <h2 class="text-2xl font-bold mb-4">
       <i class="fas fa-pen-square text-blue-500"></i> Add New Patient
     </h2>
-    {% if success %}
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-          Swal.fire({
-              icon: 'success',
-              title: 'Success!',
-              text: 'Patient added successfully!',
-              confirmButtonText: 'OK'
-          }).then(function () {
-              window.location.href = '{% url 'view_all_patients' %}';
-          });
-      });
-    </script>
-    {% endif %}
     <form id="add-patient-form" method="POST" class="grid grid-cols-4 gap-4">
       {% csrf_token %}
       <table class="w-full">
@@ -44,5 +30,5 @@ widget_tweaks %} {% block body %}
     </form>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {% endblock %}

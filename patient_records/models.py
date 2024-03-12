@@ -51,3 +51,22 @@ class PatientRecord(models.Model):
 
     def __str__(self):
         return f'PatientRecord: {self.first_name} {self.last_name}'
+
+
+# SERVICE REQUESTS
+class ServiceRequest(models.Model):
+    SERVICE_CATEGORY_CHOICES = [
+        ("OPD consultation", "OPD consultation"),
+        ("Dental consultation", "Dental consultation"),
+        ("Eye consultation", "Eye consultation"),
+        ("ANC", "ANC"),
+    ]
+
+    patient = models.ForeignKey(PatientRecord, on_delete=models.CASCADE)
+    service_category = models.CharField(max_length=20, choices=SERVICE_CATEGORY_CHOICES)
+    service_price = models.FloatField()
+    requested_by = models.CharField(max_length=100)
+    requested_on = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.patient} - {self.service_category}"

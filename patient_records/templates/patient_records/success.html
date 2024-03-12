@@ -1,0 +1,15 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Access the value of the patient_id field
+      var patientId = '{{ form.patient_id.value }}'; // Assuming patient_id is a CharField
+      Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Patient ' + patientId + ' added successfully!', // Include patient ID in the message
+          confirmButtonText: 'OK'
+      }).then(function () {
+          window.location.href = '{% url 'view_all_patients' %}';
+      });
+  });
+</script>

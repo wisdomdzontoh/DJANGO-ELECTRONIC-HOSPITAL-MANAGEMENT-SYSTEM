@@ -1,5 +1,6 @@
 from django import forms
-from .models import PatientRecord
+from .models import PatientRecord, ServiceRequest
+
 
 class PatientRecordForm(forms.ModelForm):
     class Meta:
@@ -25,7 +26,7 @@ class PatientRecordForm(forms.ModelForm):
         }
 
     widgets = {
-        'patient_id': forms.NumberInput(attrs={'class': 'form-control'}),
+        'patient_id': forms.CharField(),
         'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'John'}),
         'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Doe'}),
         'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Age'}),
@@ -37,8 +38,25 @@ class PatientRecordForm(forms.ModelForm):
         'client_status': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Client Status'}),
         'occupation': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Occupation'}),
         'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
-        'date_of_visit': forms.DateInput(attrs={'class': 'form-input', 'placeholder': 'Date of Visit', 'type': 'date'}),
+        'date_of_visit': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         'name_of_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name of Guardian'}),
         'relation_with_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Relation with Guardian'}),
         'contact_of_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contact of Guardian'}),
     }
+
+class ServiceRequestForm(forms.ModelForm):
+    class Meta:
+        model = ServiceRequest
+        fields = '__all__'
+        labels = {
+            'service_category': 'Service Category',
+            'service_price': 'Service Price',
+            'requested_by': 'Requested By',  # Corrected the field name
+            'requested_on': 'Requested On',  # Corrected the field name
+        }
+        widgets = {
+            'service_category': forms.Select(choices=ServiceRequest.SERVICE_CATEGORY_CHOICES, attrs={'class': 'form-control'}),
+            'service_price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'requested_by': forms.TextInput(attrs={'class': 'form-control'}),
+            'requested_on': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }

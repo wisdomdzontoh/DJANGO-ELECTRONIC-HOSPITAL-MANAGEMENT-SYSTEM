@@ -773,6 +773,84 @@ select {
   }
 }
 
+.form-input,.form-textarea,.form-select,.form-multiselect {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #fff;
+  border-color: #6b7280;
+  border-width: 1px;
+  border-radius: 0px;
+  padding-top: 0.5rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-shadow: 0 0 #0000;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus, .form-multiselect:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #2563eb;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  border-color: #2563eb;
+}
+
+.form-input::-moz-placeholder, .form-textarea::-moz-placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+.form-input::placeholder,.form-textarea::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+.form-input::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}
+
+.form-input::-webkit-date-and-time-value {
+  min-height: 1.5em;
+  text-align: inherit;
+}
+
+.form-input::-webkit-datetime-edit {
+  display: inline-flex;
+}
+
+.form-input::-webkit-datetime-edit,.form-input::-webkit-datetime-edit-year-field,.form-input::-webkit-datetime-edit-month-field,.form-input::-webkit-datetime-edit-day-field,.form-input::-webkit-datetime-edit-hour-field,.form-input::-webkit-datetime-edit-minute-field,.form-input::-webkit-datetime-edit-second-field,.form-input::-webkit-datetime-edit-millisecond-field,.form-input::-webkit-datetime-edit-meridiem-field {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+  -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+}
+
+.form-select:where([size]:not([size="1"])) {
+  background-image: initial;
+  background-position: initial;
+  background-repeat: unset;
+  background-size: initial;
+  padding-right: 0.75rem;
+  -webkit-print-color-adjust: unset;
+          print-color-adjust: unset;
+}
+
 .static {
   position: static;
 }
@@ -787,6 +865,18 @@ select {
 
 .right-0 {
   right: 0px;
+}
+
+.col-span-1 {
+  grid-column: span 1 / span 1;
+}
+
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
 }
 
 .col-span-4 {
@@ -854,6 +944,10 @@ select {
   display: grid;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-10 {
   height: 2.5rem;
 }
@@ -900,6 +994,10 @@ select {
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .grid-cols-4 {
@@ -972,6 +1070,10 @@ select {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .rounded {
@@ -1217,11 +1319,6 @@ select {
 .text-blue-600 {
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
-}
-
-.text-blue-700 {
-  --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity));
 }
 
 .text-blue-950 {

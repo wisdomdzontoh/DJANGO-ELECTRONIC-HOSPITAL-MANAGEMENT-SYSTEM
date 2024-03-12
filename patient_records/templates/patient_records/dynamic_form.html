@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Form</title>
+  </head>
+  <body>
+    <form id="dynamic-form">
+      <!-- Container for dynamic form fields -->
+      <div id="form-fields-container">
+        <!-- Initially, no form fields -->
+      </div>
+      <button type="button" id="add-field-btn">Add Field</button>
+      <button type="submit">Submit</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--<script src="{% static 'js/dynamic_form.js' %}"></script>-->
+    <script>
+      $(document).ready(function () {
+        // Counter for generating unique IDs for form fields
+        var fieldCounter = 0;
+
+        // Event listener for 'Add Field' button
+        $("#add-field-btn").click(function () {
+          fieldCounter++;
+          var newField = $(
+            '<input type="text" name="field_' + fieldCounter + '">'
+          );
+          $("#form-fields-container").append(newField);
+        });
+
+        // Event listener for form submission
+        $("#dynamic-form").submit(function (event) {
+          event.preventDefault();
+          var formData = $(this).serialize();
+          // Perform AJAX POST request to submit form data
+          $.ajax({
+            url: "/submit_form/",
+            method: "POST",
+            data: formData,
+            success: function (response) {
+              alert("Form submitted successfully!");
+              // Clear form fields or redirect as needed
+            },
+            error: function (xhr, status, error) {
+              alert("Error submitting form: " + error);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
