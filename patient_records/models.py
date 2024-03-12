@@ -29,7 +29,7 @@ class PatientRecord(models.Model):
     
     CLIENT_STATUS_CHOICES = [
         ('insured', 'insured'),
-        ('non-in', 'non-insured'),
+        ('non-insured', 'non-insured'),
     ]
 
     patient_id = models.CharField(max_length=50)

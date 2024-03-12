@@ -51,12 +51,14 @@ class ServiceRequestForm(forms.ModelForm):
         labels = {
             'service_category': 'Service Category',
             'service_price': 'Service Price',
-            'requested_by': 'Requested By',  # Corrected the field name
-            'requested_on': 'Requested On',  # Corrected the field name
+            'requested_by': 'Requested By',
         }
         widgets = {
-            'service_category': forms.Select(choices=ServiceRequest.SERVICE_CATEGORY_CHOICES, attrs={'class': 'form-control'}),
+            'service_category': forms.Select(attrs={'class': 'form-control'}),
             'service_price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'requested_by': forms.TextInput(attrs={'class': 'form-control'}),
-            'requested_on': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['service_category'].widget.choices = self.Meta.model.SERVICE_CATEGORY_CHOICES

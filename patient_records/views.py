@@ -56,34 +56,24 @@ def add(request):
     return render(request, 'patient_records/add.html', {'form': form})
 
 
+# EDIT AND UPDATE PATIENT INFO (I AM NOT TOUCHING IT AGAIN)
 @login_required(login_url="authentication:my-login") 
 def edit(request, id):
     patient_record = get_object_or_404(PatientRecord, pk=id)
     
     if request.method == 'POST':
         form = PatientRecordForm(request.POST, instance=patient_record)
-        service_request_form = ServiceRequestForm(request.POST)
-        
-        if form.is_valid() and service_request_form.is_valid():
+        if form.is_valid():
             form.save()
-            service_request = service_request_form.save(commit=False)
-            service_request.patient = patient_record
-            service_request.save()
-            # Redirect to the same page to clear form fields for adding another service request
-            return redirect('edit_patient', id=id)
+            return redirect('edit', id=id)
     else:
         form = PatientRecordForm(instance=patient_record)
-        service_request_form = ServiceRequestForm()
-    
-    # Get service categories from the ServiceRequest model
-    service_categories = ServiceRequest.SERVICE_CATEGORY_CHOICES
     
     return render(request, 'patient_records/edit.html', {
         'form': form,
-        'service_request_form': service_request_form,
         'patient_record': patient_record,
-        'service_categories': service_categories,
     })
+
 
 
 #delete patient records
@@ -198,7 +188,7 @@ def download_data(request, format):
     return response
 
 
-# SERVICE REQUEST HANDLING
+#ADD SERVICE REQUEST
 def add_service_request(request):
     if request.method == 'POST':
         patient_id = request.POST.get('patient_id')
@@ -211,14 +201,12 @@ def add_service_request(request):
 
         # Create a new service request instance and save it
         service_request = ServiceRequest(
+            patient=patient_record,
             service_category=service_category,
             service_price=service_price,
-            Service_requested_by=requested_by
+            requested_by=requested_by
         )
         service_request.save()
 
-        # Add the service request to the patient's records
-        patient_record.service_requests.add(service_request)
-
     # Redirect to the edit page or any other appropriate page
-    return redirect('edit_patient', id=patient_id)
+    return redirect('edit', id=patient_id)
