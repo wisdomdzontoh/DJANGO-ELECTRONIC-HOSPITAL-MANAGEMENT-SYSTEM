@@ -44,6 +44,7 @@ class PatientRecordForm(forms.ModelForm):
         'contact_of_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contact of Guardian'}),
     }
 
+# forms.py
 class ServiceRequestForm(forms.ModelForm):
     class Meta:
         model = ServiceRequest
@@ -54,11 +55,5 @@ class ServiceRequestForm(forms.ModelForm):
             'requested_by': 'Requested By',
         }
         widgets = {
-            'service_category': forms.Select(attrs={'class': 'form-control'}),
             'service_price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
-            'requested_by': forms.TextInput(attrs={'class': 'form-control'}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['service_category'].widget.choices = self.Meta.model.SERVICE_CATEGORY_CHOICES

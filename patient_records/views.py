@@ -63,6 +63,7 @@ def edit(request, id):
     
     if request.method == 'POST':
         form = PatientRecordForm(request.POST, instance=patient_record)
+        
         if form.is_valid():
             form.save()
             return redirect('edit', id=id)
@@ -83,6 +84,7 @@ def delete(request, id):
         patient_record = PatientRecord.objects.get(pk=id)
         patient_record.delete()
     return redirect('view_all_patients')
+
 
 
 # dashboard function to display data
@@ -110,6 +112,8 @@ def index(request):
         'gender_data': gender_data,
         'client_status_data': client_status_data
     })
+    
+    
     
     
 
@@ -188,25 +192,24 @@ def download_data(request, format):
     return response
 
 
-#ADD SERVICE REQUEST
-def add_service_request(request):
+# ADD SERVICE REQUEST
+@login_required(login_url="authentication:my-login") 
+def add_service_request(request, id):
+    patient_record = get_object_or_404(PatientRecord, pk=id)
+    
     if request.method == 'POST':
-        patient_id = request.POST.get('patient_id')
-        service_category = request.POST.get('service_category')
-        service_price = request.POST.get('service_price')
-        requested_by = request.POST.get('requested_by')
-
-        # Assuming you have a ForeignKey relationship between PatientRecord and ServiceRequest
-        patient_record = PatientRecord.objects.get(patient_id=patient_id)
-
-        # Create a new service request instance and save it
-        service_request = ServiceRequest(
-            patient=patient_record,
-            service_category=service_category,
-            service_price=service_price,
-            requested_by=requested_by
-        )
-        service_request.save()
-
-    # Redirect to the edit page or any other appropriate page
-    return redirect('edit', id=patient_id)
+        service_request_form = ServiceRequestForm(request.POST)
+        
+        if service_request_form.is_valid():
+            service_request = service_request_form.save(commit=False)
+            service_request.patient = patient_record
+            service_request.save()
+            return redirect('edit', id=id)
+    else:
+        service_request_form = ServiceRequestForm()
+    
+    return render(request, 'patient_records/add_service_request.html', {
+        'service_request_form': service_request_form,
+        'patient_record': patient_record,
+    })
+    

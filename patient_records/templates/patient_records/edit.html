@@ -21,9 +21,8 @@
         <a
           href="{% url 'view_all_patients' %}"
           class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >Cancel</a
         >
-          Cancel
-        </a>
       </div>
     </form>
   </div>
@@ -32,132 +31,85 @@
 <div class="container mx-auto mt-8">
   <div class="card bg-white rounded-lg shadow-md p-8">
     <h2 class="text-2xl font-bold mb-4">
-      <i class="fas fa-pen-square text-blue-500"></i> Request Service for Client
+      <i class="fas fa-pen-square text-blue-500"></i> Request Service for
+      Patient {{ patient_record.patient_id }}
     </h2>
 
-    <form id="add-service-request-form">
-      {% csrf_token %}
-      <div class="service-request-form-container">
-        <!-- Dynamic service request forms will be inserted here -->
-      </div>
+    <form
+      id="add-service-request-form"
+      action="{% url 'add_service_request' patient_record.id %}"
+      method="POST"
+    >
+      {% csrf_token %} {{ service_request_form.as_p }}
+      <input
+        type="hidden"
+        name="patient_id"
+        value="{{ patient_record.patient_id }}"
+      />
+
       <div class="col-span-4 flex justify-end mt-6 space-x-3">
         <button
-          type="button"
-          class="add-service-request-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Add Service Request
         </button>
       </div>
     </form>
-
-    <!-- Table to display submitted service requests -->
-    <div class="mt-8">
-      <h3 class="text-xl font-bold mb-4">Service Requests</h3>
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th
-              scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Service Category
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Service Price
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Requested By
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Requested On
-            </th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          <!-- Rows for each service request will be inserted here -->
-        </tbody>
-      </table>
-    </div>
   </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const addServiceRequestBtn = document.querySelector(".add-service-request-btn");
-    const serviceRequestFormContainer = document.querySelector(".service-request-form-container");
-    const serviceRequestTableBody = document.querySelector(".bg-white.divide-y.divide-gray-200");
-
-    // Function to delete a service request form
-    function deleteServiceRequestForm(event) {
-      event.preventDefault();
-      const formContainer = this.parentElement.parentElement;
-      formContainer.remove();
-    }
-
-    addServiceRequestBtn.addEventListener("click", function () {
-      const newServiceRequestForm = `
-        <div class="service-request-form col-span-4 grid grid-cols-4 gap-4 bg-gray-100 p-4 rounded mb-4">
-          <input type="hidden" name="patient_id" value="{{ patient_record.patient_id }}" class="col-span-4" />
-          <div class="col-span-3 grid grid-cols-3 gap-4">
-            <!-- Dropdown for service category -->
-            <select name="service_category" class="form-select col-span-2">
-              <option value="" disabled selected>Select Service Category</option>
-              {% for category, _ in service_categories %}
-                <option value="{{ category }}">{{ category }}</option>
-              {% endfor %}
-            </select>
-
-            <!-- Input field for service price -->
-            <input type="number" name="service_price" class="form-input col-span-1" placeholder="Service Price">
-            <!-- Input field for requested by -->
-            <input type="text" name="requested_by" class="form-input col-span-3" placeholder="Requested By">
-          </div>
-          <div class="col-span-4 flex justify-end mt-6 space-x-3">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
-            <button class="delete-service-request-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
-          </div>
-        </div>
-      `;
-
-      // Append the new service request form to the container
-      serviceRequestFormContainer.insertAdjacentHTML("beforeend", newServiceRequestForm);
-
-      // Add event listeners to delete buttons
-      const deleteButtons = document.querySelectorAll(".delete-service-request-btn");
-      deleteButtons.forEach((button) => button.addEventListener("click", deleteServiceRequestForm));
-    });
-
-    // Function to add a row to the service request table
-    function addServiceRequestToTable(service_category, service_price, requested_by, requested_on) {
-      const newRow = `
+<div class="container mx-auto mt-8">
+  <div class="card bg-white rounded-lg shadow-md p-8">
+    <h3 class="text-xl font-bold mb-4">Service Requests</h3>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
         <tr>
-          <td class="px-6 py-4 whitespace-nowrap">${service_category}</td>
-          <td class="px-6 py-4 whitespace-nowrap">${service_price}</td>
-          <td class="px-6 py-4 whitespace-nowrap">${requested_by}</td>
-          <td class="px-6 py-4 whitespace-nowrap">${requested_on}</td>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Service Category
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Service Price
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Requested By
+          </th>
+          <th
+            scope="col"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Requested On
+          </th>
         </tr>
-      `;
-      serviceRequestTableBody.insertAdjacentHTML("beforeend", newRow);
-    }
-
-    // Example: Call addServiceRequestToTable for each service request
-    {% for service_request in patient_record.service_requests.all %}
-      addServiceRequestToTable(
-        "{{ service_request.service_category }}",
-        "{{ service_request.service_price }}",
-        "{{ service_request.requested_by }}",
-        "{{ service_request.requested_by }}",
-      );
-    {% endfor %}
-  });
-</script>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        {% for service_request in patient_record.service_requests.all %}
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap">
+            {{ service_request.service_category }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            {{ service_request.service_price }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            {{ service_request.requested_by }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            {{ service_request.requested_on }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}

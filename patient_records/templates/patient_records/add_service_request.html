@@ -1,0 +1,32 @@
+{% extends 'patient_records/base.html' %} {% block body %}
+<div class="container mx-auto mt-8">
+  <div class="card bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold mb-4">
+      <i class="fas fa-pen-square text-blue-500"></i> Request Service for
+      Patient {{ patient_record.patient_id }}
+    </h2>
+
+    <form
+      id="add-service-request-form"
+      method="POST"
+      class="grid grid-cols-4 gap-4"
+    >
+      {% csrf_token %} {{ service_request_form.as_p }}
+      <input
+        type="hidden"
+        name="patient_id"
+        value="{{ patient_record.patient_id }}"
+      />
+
+      <div class="col-span-4 flex justify-end mt-6 space-x-3">
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add Service Request
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
