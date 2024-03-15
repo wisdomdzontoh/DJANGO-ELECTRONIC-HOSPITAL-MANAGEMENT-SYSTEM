@@ -38,7 +38,6 @@ def view_patient(request, id):
 
 
 # Add a new patient record 
-# Add a new patient record 
 @login_required(login_url="authentication:my-login") 
 def add(request):
     if request.method == 'POST':

@@ -1,0 +1,104 @@
+{% extends 'patient_records/base.html' %} {% block body %}
+<h2 class="text-2xl font-bold mb-4 text-center">Add Departments here</h2>
+
+<!--Tabs navigation-->
+<div class="flex flex-wrap justify-center gap-1 mb-4 w-full">
+  <button
+    class="active tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-indigo-400 bg-purple-400"
+  >
+    <a href="{% url 'view-all' %}">View departments</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
+  >
+    <a href="{% url 'add' %}">Add departments</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
+  >
+    <a href="#">Statistics</a>
+  </button>
+</div>
+
+<!--tab content section-->
+<div
+  class="bg-gray-200 p-4 rounded-md w-[800px] h-[600px] flex flex-wrap justify-center gap-1 mb-4 min-w-full divide-y divide-gray-200 shadow overflow-hidden"
+>
+  <table
+    class="min-w-full divide-y divide-gray-200 rounded-md shadow overflow-hidden w-full"
+  >
+    <!-- Table Header -->
+    <thead>
+      <tr>
+        <th
+          class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+        >
+          ID
+        </th>
+        <th
+          class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+        >
+          Name of Department
+        </th>
+        <th
+          class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+        >
+          Description
+        </th>
+        <th
+          class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+        >
+          Last Updated
+        </th>
+        <th
+          class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-extrabold bg-gray-50"
+        >
+          Action
+        </th>
+      </tr>
+    </thead>
+    <!-- Table Body -->
+    <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+      <!-- Table Rows (Rendered by Django) -->
+      {% for department in departments %}
+      <tr>
+        <td class="px-6 py-4 whitespace-no-wrap">{{ department.id }}</td>
+        <td class="px-6 py-4 whitespace-no-wrap">
+          {{ department.name_of_department }}
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap">
+          {{ department.description }}
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap">
+          {{ department.last_updated }}
+        </td>
+        <td
+          class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium"
+        >
+          <a
+            href="{% url 'edit-department' department.id %}"
+            class="text-blue-600 hover:text-blue-900 mr-2"
+            ><i class="fa-solid fa-pen-to-square fa-2x"></i
+          ></a>
+          <form
+            action="{% url 'departments/delete' department.id %}"
+            method="post"
+            class="inline"
+          >
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="text-red-600 hover:text-red-900"
+              onclick="return confirm('Are you sure you want to delete this department?')"
+            >
+              <i class="fa-solid fa-trash fa-2x"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

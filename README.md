@@ -10,6 +10,7 @@ This Electronic Medical Records (EMR) system is a comprehensive solution designe
 - **User Authentication**: Secure user authentication and authorization mechanisms to control access to patient records.
 - **Customizable Dashboard**: Tailwind CSS is used for styling, allowing for easy customization of the system's look and feel.
 - **Interactive Notifications**: SweetAlerts integration provides interactive popup notifications for success and error messages, enhancing user experience.
+- **Customizable department**: Add and modify departs, this is totally customizable to your needs.
 
 ## Installation
 

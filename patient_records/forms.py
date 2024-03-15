@@ -44,7 +44,7 @@ class PatientRecordForm(forms.ModelForm):
         'contact_of_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contact of Guardian'}),
     }
 
-# forms.py
+# SERVICE REQUEST
 class ServiceRequestForm(forms.ModelForm):
     class Meta:
         model = ServiceRequest

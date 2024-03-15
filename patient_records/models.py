@@ -4,7 +4,6 @@ class PatientRecord(models.Model):
     GENDER_CHOICES = [
         ('M', 'Male'),
         ('F', 'Female'),
-        ('O', 'Other'),
     ]
 
     AGE_GROUP_CHOICES = [
