@@ -1,8 +1,13 @@
 from django import forms
 from .models import PatientRecord, ServiceRequest
+from django.forms.widgets import DateInput # need to import
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 class PatientRecordForm(forms.ModelForm):
+    
+
     class Meta:
         model = PatientRecord
         fields = '__all__'
@@ -38,7 +43,7 @@ class PatientRecordForm(forms.ModelForm):
         'client_status': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Client Status'}),
         'occupation': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Occupation'}),
         'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
-        'date_of_visit': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        'date_of_visit': forms.DateField(widget = DateInput),
         'name_of_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name of Guardian'}),
         'relation_with_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Relation with Guardian'}),
         'contact_of_guardian': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contact of Guardian'}),

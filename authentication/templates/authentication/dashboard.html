@@ -58,11 +58,11 @@
     >
       <div>
         <i class="fa-solid fa-user-nurse text-blue-500 text-3xl"></i>
-        <h3 class="text-lg font-semibold mb-2">Add departments here</h3>
+        <h3 class="text-lg font-semibold mb-2">Departments</h3>
         <a
           class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
           href="{% url 'departments' %}"
-          >Add</a
+          >View module</a
         >
       </div>
     </div>
@@ -72,7 +72,7 @@
     >
       <div>
         <i class="fa-solid fa-folder text-green-500 text-3xl"></i>
-        <h3 class="text-lg font-semibold mb-2">Health Information</h3>
+        <h3 class="text-lg font-semibold mb-2">Health Informatics</h3>
         <a
           class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
           href="{% url 'patient-records' %}"
@@ -115,10 +115,10 @@
     >
       <div>
         <i class="fa-solid fa-user-nurse text-blue-500 text-3xl"></i>
-        <h3 class="text-lg font-semibold mb-2">Nurse Station</h3>
+        <h3 class="text-lg font-semibold mb-2">Services</h3>
         <a
           class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
-          href="#"
+          href="{% url 'services' %}"
           >View module</a
         >
       </div>
@@ -142,12 +142,12 @@
       class="bg-white p-4 rounded-md shadow-md flex items-center justify-between hover:bg-gray-100"
     >
       <div>
-        <i class="fa-solid fa-vial text-red-500 text-3xl"></i>
+        <i class="fa-solid fa-user-nurse text-green-500 text-3xl"></i>
 
-        <h3 class="text-lg font-semibold mb-2">Laboratory</h3>
+        <h3 class="text-lg font-semibold mb-2">Nurse Station</h3>
         <a
           class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
-          href="#"
+          href="{% url 'nursestation' %}"
           >View module</a
         >
       </div>

@@ -44,17 +44,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    #apps created by developer in this app
     'authentication', #user login app
     'patient_records', #records app
     'departments', #departments app
     'humanresource', #human resource department
-    
-    
+    'nursestation',  #nurse appointment module
+    'services', #adding services and prices
+  
+    #apps and framworks used
+    'datetimepicker',
     'widget_tweaks', #widget tweaks
     'crispy_forms', #crispy forms
     'tailwind', #tailwind library
     'theme', #name of theme library
     'django_browser_reload' #auto reload  page when changes are made to files 
+    
 ]
 
 
@@ -76,9 +82,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',  #middleware for messages
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware", #tailwind middleware
+    
 ]
 
 ROOT_URLCONF = 'hospitalmanagementsystem.urls'

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class PatientRecord(models.Model):
     GENDER_CHOICES = [
         ('M', 'Male'),
@@ -49,7 +50,7 @@ class PatientRecord(models.Model):
     contact_of_guardian = models.CharField(max_length=50, default="none")
 
     def __str__(self):
-        return f'PatientRecord: {self.first_name} {self.last_name}'
+        return f'{self.patient_id} - {self.last_name} {self.first_name}'
 
 
 # SERVICE REQUESTS

@@ -1,0 +1,75 @@
+{% extends 'patient_records/base.html' %} {% block body %}
+
+<h2 class="text-2xl font-bold mb-4 text-center">Book Appointment</h2>
+<!--Tabs navigation-->
+<div class="flex flex-wrap justify-center gap-1 mb-4 w-full">
+  <button
+    class="active tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-indigo-400 bg-purple-400"
+  >
+    <a href="{% url 'view' %}">View New appointments</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-blue-400"
+  >
+    <a href="{% url 'book' %}">Add new appointment</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
+  >
+    <a href="#">Statistics</a>
+  </button>
+</div>
+
+<div class="container mx-auto mt-8">
+  <div class="card bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold mb-4">
+      <i class="fas fa-calendar-plus text-blue-500"></i> Book New Appointment
+    </h2>
+
+    <form
+      id="book-appointment-form"
+      method="POST"
+      class="grid grid-cols-4 gap-4"
+    >
+      {% csrf_token %}
+      <table class="w-full">
+        <!-- Patient -->
+        {{ form.as_p }}
+      </table>
+      <div class="col-span-4 flex justify-end mt-6 space-x-3">
+        <button
+          id="submit-btn"
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Book
+        </button>
+        <a
+          href="#"
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >Cancel</a
+        >
+      </div>
+    </form>
+  </div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"
+></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  // In your Javascript (external .js resource or <script> tag)
+  $(document).ready(function () {
+    $("#patient").select2();
+  });
+  $(document).ready(function () {
+    $("#doctor").select2();
+  });
+  $(document).ready(function () {
+    $("#type_of_service").select2();
+  });
+</script>
+{% endblock %}

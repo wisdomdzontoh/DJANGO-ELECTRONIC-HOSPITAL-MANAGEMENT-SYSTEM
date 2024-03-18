@@ -1,0 +1,144 @@
+{% extends 'patient_records/base.html' %} {% block body %}
+<h2 class="text-2xl font-bold mb-4 text-center">View Appointments</h2>
+
+<!--Tabs navigation-->
+<div class="flex flex-wrap justify-center gap-1 mb-4 w-full">
+  <button
+    class="active tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-indigo-400 bg-blue-400"
+  >
+    <a href="{% url 'view' %}">View New appointments</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
+  >
+    <a href="{% url 'book' %}">Add new appointment</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
+  >
+    <a href="#">Statistics</a>
+  </button>
+</div>
+
+<div class="container mx-auto mt-8">
+  <div class="card bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold mb-4">
+      <i class="fas fa-calendar-check text-green-500"></i> Your Appointments
+    </h2>
+    <!-- Search Input -->
+    <input
+      type="text"
+      id="searchInput"
+      class="mb-4 px-4 py-2 rounded-md border border-gray-300"
+      placeholder="Search patients..."
+    />
+    <table
+      class="min-w-full divide-y divide-gray-200 rounded-md shadow overflow-hidden w-full"
+    >
+      <thead>
+        <tr>
+          <th
+            class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+          >
+            Patient ID
+          </th>
+          <th
+            class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+          >
+            Date & Time
+          </th>
+          <th
+            class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+          >
+            Doctor
+          </th>
+          <th
+            class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+          >
+            Type of service
+          </th>
+          <th
+            class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+          >
+            Status
+          </th>
+          <th
+            class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-extrabold text-gray-500 uppercase tracking-wider"
+          >
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+        {% for nursestation in nursestations %}
+        <tr>
+          <td class="px-6 py-4 whitespace-no-wrap">
+            {{ nursestation.patient }}
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap">
+            {{ nursestation.date_of_appointment }}
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap">
+            {{ nursestation.doctor }}
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap">
+            {{ nursestation.type_of_service }}
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap">
+            {% if nursestation.status_of_appointment == 'Confirmed' %}
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+              >{{ nursestation.status_of_appointment }}</span
+            >
+            {% else %}
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
+              >{{ nursestation.status_of_appointment }}</span
+            >
+            {% endif %}
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap">
+            {% if nursestation.status_of_appointment == 'Confirmed' %}
+            <a
+              href="#"
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-200 text-green-500"
+              ><i class="fa-solid fa-pen-to-square fa-2x"></i>
+            </a>
+            {% else %}
+            <a
+              href="#"
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
+              ><i class="fa-solid fa-circle-info fa-2x"></i>
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // Search Functionality
+  document.getElementById("searchInput").addEventListener("input", function () {
+    var searchQuery = this.value.toLowerCase();
+    var tableRows = document
+      .getElementById("tableBody")
+      .getElementsByTagName("tr");
+    for (var i = 0; i < tableRows.length; i++) {
+      var cells = tableRows[i].getElementsByTagName("td");
+      var found = false;
+      for (var j = 0; j < cells.length; j++) {
+        var cellText = cells[j].textContent.toLowerCase();
+        if (cellText.includes(searchQuery)) {
+          found = true;
+          break;
+        }
+      }
+      tableRows[i].style.display = found ? "" : "none";
+    }
+  });
+</script>
+{% endblock %}

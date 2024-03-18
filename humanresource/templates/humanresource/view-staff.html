@@ -1,0 +1,133 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    {% tailwind_css %}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-...replace_with_integrity_code_here...="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .profile-dropdown {
+        display: none;
+        background-color: #fff;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        transition: all 0.3s;
+      }
+
+      .profile:hover .profile-dropdown {
+        display: block;
+      }
+
+      .profile:hover .profile-dropdown {
+        background-color: #f9fafb;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-purple-600 p-4">
+      <div class="flex justify-between items-center">
+        <a href="{% url 'humanresource' %}">
+        <h1 class="text-white text-xl font-bold">
+          Electronic Management System
+        </h1>
+      </a>
+      <ul class="flex space-x-8">
+        <li><a href="#" class="p-4 rounded-md bg-purple-700 hover:bg-purple-600 text-white"><i class="fa fa-home"></i></a>
+        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-yellow-300 hover:text-white">Features</a></li>
+        <li><a href="#features" class="p-4 bg-transparent hover:bg-blue-700 rounded-full text-yellow-300 hover:text-white">System updates</a></li>
+        
+        <!--notification-->
+        <div class="flex items-center">
+          <div class="profile relative mr-4">
+            
+            <img
+              src="{% static 'images/notification.png' %}"
+              alt="notification Image"
+              class="rounded-full w-10 h-10 cursor-pointer"
+            />
+            
+          </div>
+  <!--profile icon-->
+<div class="flex items-center">
+  <div class="profile relative mr-4">
+    <img
+      src="{% static 'images/user.png' %}"
+      alt="Profile Image"
+      class="rounded-full w-10 h-10 cursor-pointer"
+    />
+    <div class="profile-dropdown absolute shadow-md rounded-md py-2 right-0 mt-2 w-48">
+      <p class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">
+        <i class="fas fa-user mr-2"></i>{{ user.username }}
+      </p>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">View Profile</a>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">Update Profile</a>
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-purple-600 hover:text-white">Reset Password</a>
+    </div>
+  </div>
+  <a class="bg-red-500 text-white py-2 px-4 rounded-md cursor-pointer" href="{% url 'user-logout' %}">Logout</a>
+</div>
+</div>
+    </nav>
+    <!--STAFF PROFILE CARD-->
+    <div class="container mx-auto mt-8 px-4 bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="md:flex">
+            
+            <div class="md:flex-shrink-0">
+                <img class="h-48 w-full object-cover md:w-48" src="{{ staff.image_of_staff.url }}" alt="Staff Image">
+            </div>
+            <div class="p-8 md:grid grid-cols-2 gap-x-4">
+                <div class="text-gray-900">
+                    <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold">
+                        Staff ID: <strong class="text-2xl">{{ staff.id }}</strong>
+                    </div>
+                    <div class="mt-2 text-3xl font-bold">
+                        {{ staff.name_of_staff }}
+                    </div>
+                    <div class="mt-2 text-gray-600">
+                        <span class="font-bold">Gender:</span> {{ staff.gender }}
+                    </div>
+                    <div class="mt-2 text-gray-600">
+                        <span class="font-bold">Qualification:</span> {{ staff.qualification }}
+                    </div>
+                    <div class="mt-2 text-gray-600">
+                        <span class="font-bold">Name of Department:</span> {{ staff.name_of_department }}
+                    </div>
+                    <div class="mt-2 text-gray-600">
+                      <span class="font-bold">Salary:</span> {{ staff.salary }}
+                  </div>
+                  <div class="mt-2 text-gray-600">
+                      <span class="font-bold">Phone number:</span> {{ staff.phone }}
+                  </div>
+                  <div class="mt-2 text-gray-600">
+                      <span class="font-bold">Email:</span> {{ staff.email }}
+                  </div>
+                  <div class="mt-2 text-gray-600">
+                      <span class="font-bold">Date of Appointment:</span> {{ staff.date_of_appointment }}
+                  </div>
+                </div>   
+                    <div class="col-span-4 flex justify-end mt-6 space-x-3">
+                      <a href="{% url 'edit-staff' staff.id %}" class="bg-blue-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
+                        Edit
+                    </a>
+                      <a href="{% url 'view-all-staff' %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                          Go back
+                      </a>
+                  </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

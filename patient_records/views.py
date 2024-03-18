@@ -18,7 +18,7 @@ from .forms import PatientRecordForm, ServiceRequestForm
 
 
 
-
+# VIEW ALL PATIENT IN A TABLE
 @login_required(login_url="authentication:my-login")
 def view_all_patients(request):
     # Retrieve patient records sorted by date_of_visit
@@ -31,6 +31,8 @@ def view_all_patients(request):
     
     return render(request, 'patient_records/view_all_patients.html', {'patient_records': patient_records})
 
+
+# VIEW A PATIENT PROFILE
 @login_required(login_url="authentication:my-login") 
 def view_patient(request, id):
     patient_record = PatientRecord.objects.get(pk=id)

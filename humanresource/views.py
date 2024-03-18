@@ -10,6 +10,14 @@ from django.http import Http404
 def index(request):
     return render(request, 'humanresource/index.html')
 
+# VIEW A STAFF PROFILE
+@login_required(login_url="authentication:my-login")
+def view_staff(request, id):
+    staff = HumanResource.objects.get(pk=id)
+    return render(request, 'humanresource/view-staff.html', {'staff': staff})
+
+
+
 
 # View all departments
 @login_required(login_url="authentication:my-login")

@@ -1,0 +1,59 @@
+
+{% extends 'patient_records/base.html' %} {% block body %}
+<h2 class="text-2xl font-bold mb-4 text-center">
+  Add Services for the facility here
+</h2>
+
+<!--Tabs navigation-->
+<div class="flex flex-wrap justify-center gap-1 mb-4 w-full">
+  <button
+    class="active tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-indigo-400 bg-purple-400"
+  >
+    <a href="{% url 'view-all' %}">View all services</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
+  >
+    <a href="{% url 'add-service' %}">Add services</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
+  >
+    <a href="#">Statistics</a>
+  </button>
+</div>
+    <!--PATIENT PROFILE CARD-->
+    <div class="container mx-auto mt-8 px-4 bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="md:flex">
+            <div class="p-8 md:grid grid-cols-2 gap-x-4">
+                <div class="text-gray-900">
+                    <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold">
+                        Service ID: <strong class="text-2xl">{{ service.id }}</strong>
+                    </div>
+                    <div class="mt-2 text-3xl font-bold">
+                        {{ service.service_name }}
+                    </div>
+                    <div class="mt-2 text-gray-600">
+                        Price: {{ service.service_price }}
+                    </div>
+                    <div class="mt-2 text-gray-600">
+                        <span class="font-bold">Description:</span> {{ service.description }}
+                    </div>
+                    <div class="mt-2 text-gray-600">
+                        <span class="font-bold">Last Updated:</span> {{ service.last_updated }}
+                    </div>
+                </div>   
+                    <div class="col-span-4 flex justify-end mt-6 space-x-3">
+                      <a href="{% url 'edit-service' service.id %}" class="bg-blue-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
+                        Edit
+                    </a>
+                      <a href="{% url 'view-all' %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                          Go back
+                      </a>
+                  </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.conf.urls.static import static
-
 from django.contrib import admin
 from django.urls import path, include
 
@@ -10,6 +9,8 @@ urlpatterns = [
     path('patient-records/', include('patient_records.urls')),
     path('departments/', include('departments.urls')),
     path('humanresource/', include('humanresource.urls')),
+    path('nursestation/', include('nursestation.urls')),
+    path('services/', include('services.urls')),
     
     
     path('admin_tools_stats/', include('admin_tools_stats.urls')), #for django-admin chart view

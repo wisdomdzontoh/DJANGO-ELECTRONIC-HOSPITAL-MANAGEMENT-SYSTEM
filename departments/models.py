@@ -7,4 +7,4 @@ class Department(models.Model):
     last_updated = models.DateField(auto_now_add=True)
     
     def __str__(self):
-        return f'department: {self.name_of_department}'
+        return f'{self.name_of_department}'
