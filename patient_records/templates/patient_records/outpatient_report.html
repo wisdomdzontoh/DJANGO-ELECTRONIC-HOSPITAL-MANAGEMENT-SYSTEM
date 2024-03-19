@@ -1,0 +1,70 @@
+<!-- outpatient_report.html -->
+{% extends 'patient_records/base.html' %} {% block body %}
+
+<h1 class="text-center text-3xl font-bold mb-8">
+  GENERATE STATEMENT OF OUTPATIENT REPORT
+</h1>
+<form method="post" action="" class="flex justify-center mb-8">
+  {% csrf_token %}
+  <label for="start_date" class="font-bold mr-2">Start Date:</label>
+  <input
+    type="date"
+    name="start_date"
+    required
+    class="p-2 border border-gray-300 rounded mr-2"
+  />
+  <label for="end_date" class="font-bold mr-2">End Date:</label>
+  <input
+    type="date"
+    name="end_date"
+    required
+    class="p-2 border border-gray-300 rounded mr-2"
+  />
+  <input
+    type="submit"
+    name="submit"
+    value="Generate Report"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+  />
+  <a href="#">
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+    >
+      <i class="fa-solid fa-download text-blue-950 text-3xl"></i>
+      Download Excel
+    </button>
+  </a>
+</form>
+
+{% if rows %}
+<table class="table-auto w-full mb-8">
+  <thead>
+    <tr>
+      <th class="bg-blue-500 text-white px-4 py-2">Age Groups</th>
+      <th class="bg-blue-500 text-white px-4 py-2">New Male Insured</th>
+      <th class="bg-blue-500 text-white px-4 py-2">Old Male Insured</th>
+      <th class="bg-blue-500 text-white px-4 py-2">New Male Non-Insured</th>
+      <th class="bg-blue-500 text-white px-4 py-2">Old Male Non-Insured</th>
+      <th class="bg-blue-500 text-white px-4 py-2">New Female Insured</th>
+      <th class="bg-blue-500 text-white px-4 py-2">Old Female Insured</th>
+      <th class="bg-blue-500 text-white px-4 py-2">New Female Non-Insured</th>
+      <th class="bg-blue-500 text-white px-4 py-2">Old Female Non-Insured</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows %}
+    <tr>
+      <td class="border font-semibold px-4 py-2">{{ row.0 }}</td>
+      <td class="border text-center px-4 py-2">{{ row.1 }}</td>
+      <td class="border text-center px-4 py-2">{{ row.2 }}</td>
+      <td class="border text-center px-4 py-2">{{ row.3 }}</td>
+      <td class="border text-center px-4 py-2">{{ row.4 }}</td>
+      <td class="border text-center px-4 py-2">{{ row.5 }}</td>
+      <td class="border text-center px-4 py-2">{{ row.6 }}</td>
+      <td class="border text-center px-4 py-2">{{ row.7 }}</td>
+      <td class="border text-center px-4 py-2">{{ row.8 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %} {% endblock %}

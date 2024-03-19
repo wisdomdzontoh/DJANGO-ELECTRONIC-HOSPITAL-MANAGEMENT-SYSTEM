@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import PatientRecord
-from .forms import PatientRecordForm
+from .forms import PatientRecordForm, ServiceRequestForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
@@ -14,7 +14,10 @@ import xlwt  # For Excel format
 from django.http import HttpResponse
 from django.utils.crypto import get_random_string
 from .models import PatientRecord, ServiceRequest
-from .forms import PatientRecordForm, ServiceRequestForm
+from .models import PatientRecord
+from django.db.models import Count
+from django.db import connection
+from django.db import OperationalError
 
 
 
@@ -51,7 +54,7 @@ def add(request):
    
     else:
         # Generate the patient ID
-        generated_id = f'GHA-{get_random_string(length=8, allowed_chars="0123456789")}'
+        generated_id = f'GHA-{get_random_string(length=8, allowed_chars="0123456789")}/24'
         # Prefill the form with the generated ID
         form = PatientRecordForm(initial={'patient_id': generated_id})
     return render(request, 'patient_records/add.html', {'form': form})
@@ -67,7 +70,7 @@ def edit(request, id):
         
         if form.is_valid():
             form.save()
-            return redirect('edit', id=id)
+            return render(request, 'patient_records/update-success.html')
     else:
         form = PatientRecordForm(instance=patient_record)
     
@@ -214,3 +217,39 @@ def add_service_request(request, id):
         'patient_record': patient_record,
     })
     
+
+
+
+#GENERATE THE STATEMENT OF OUTPATIENT REPORT
+@login_required(login_url="authentication:my-login") 
+def outpatient_report(request):
+    try:
+        if request.method == 'POST':
+            start_date = request.POST.get('start_date')
+            end_date = request.POST.get('end_date')
+
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                    SELECT
+                        age_group,
+                        SUM(CASE WHEN gender = 'M' AND client_status = 'insured' AND client_type = 'New client' THEN 1 ELSE 0 END) AS New_Male_Insured,
+                        SUM(CASE WHEN gender = 'M' AND client_status = 'insured' AND client_type = 'old client' THEN 1 ELSE 0 END) AS Old_Male_Insured,
+                        SUM(CASE WHEN gender = 'M' AND client_status = 'non-insured' AND client_type = 'New client' THEN 1 ELSE 0 END) AS New_Male_Non_Insured,
+                        SUM(CASE WHEN gender = 'M' AND client_status = 'non-insured' AND client_type = 'old client' THEN 1 ELSE 0 END) AS Old_Male_Non_Insured,
+                        SUM(CASE WHEN gender = 'F' AND client_status = 'insured' AND client_type = 'New client' THEN 1 ELSE 0 END) AS New_Female_Insured,
+                        SUM(CASE WHEN gender = 'F' AND client_status = 'insured' AND client_type = 'old client' THEN 1 ELSE 0 END) AS Old_Female_Insured,
+                        SUM(CASE WHEN gender = 'F' AND client_status = 'non-insured' AND client_type = 'New client' THEN 1 ELSE 0 END) AS New_Female_Non_Insured,
+                        SUM(CASE WHEN gender = 'F' AND client_status = 'non-insured' AND client_type = 'old client' THEN 1 ELSE 0 END) AS Old_Female_Non_Insured
+                    FROM patient_records_patientrecord
+                    WHERE date_of_visit BETWEEN %s AND %s
+                    GROUP BY age_group
+                """, [start_date, end_date])
+                rows = cursor.fetchall()
+        else:
+            rows = None
+    except OperationalError as e:
+        # Handle the operational error (e.g., database connection issue)
+        print(f"Operational error: {e}")
+        rows = None
+
+    return render(request, 'patient_records/outpatient_report.html', {'rows': rows})

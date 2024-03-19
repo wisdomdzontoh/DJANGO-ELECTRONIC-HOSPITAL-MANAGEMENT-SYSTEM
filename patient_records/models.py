@@ -31,10 +31,40 @@ class PatientRecord(models.Model):
         ('insured', 'insured'),
         ('non-insured', 'non-insured'),
     ]
+    
+    OCCUPATION_CHOICES = [
+        ('unemployed', 'unemployed'),
+        ('student', 'student'),
+        ('farming', 'farming'),
+        ('trading', 'trading'),
+        ('artisan(hairdresser,seamstress)', 'artisan(hairdresser,seamstress)'),
+        ('civil servant', 'civil servant'),
+        ('others', 'others'),  
+    ]
+    
+    RELATION_CHOICES = [
+        ('parent', 'parent'),
+        ('sibling', 'sibling'),
+        ('uncle/aunt', 'uncle/aunt'), 
+        ('grandparent', 'grandparent'),
+        ('nephew/niece', 'nephew/niece'),
+        ('other', 'other'),   
+    ]
+    
+    EDUCATION_CHOICES = [
+        ('no formal education', 'no formal education'),
+        ('primary', 'primary'),
+        ('JHS', 'JHS'), 
+        ('SHS/Technical/Vocational', 'SHS/Technical/Vocational'),
+        ('tertiary', 'tertiary'),
+        ('other', 'other'),   
+    ]
+
 
     patient_id = models.CharField(max_length=50)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    other_names = models.CharField(max_length=50, default="none")
     age = models.FloatField()
     phone = models.CharField(max_length=50)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
@@ -42,11 +72,12 @@ class PatientRecord(models.Model):
     NHIS_number = models.CharField(max_length=30, default="none")
     client_type = models.CharField(max_length=20, choices=CLIENT_TYPE_CHOICES)
     client_status = models.CharField(max_length=20, choices=CLIENT_STATUS_CHOICES)
-    occupation = models.CharField(max_length=50, default="none")
+    occupation = models.CharField(max_length=50, choices=OCCUPATION_CHOICES)
+    level_of_education = models.CharField(max_length=50, choices=EDUCATION_CHOICES, default="none")
     address = models.CharField(max_length=50, default="none")
     date_of_visit = models.DateField()
     name_of_guardian = models.CharField(max_length=50, default="none")
-    relation_with_guardian = models.CharField(max_length=50, default="none")
+    relation_with_guardian = models.CharField(max_length=50, choices=RELATION_CHOICES)
     contact_of_guardian = models.CharField(max_length=50, default="none")
 
     def __str__(self):

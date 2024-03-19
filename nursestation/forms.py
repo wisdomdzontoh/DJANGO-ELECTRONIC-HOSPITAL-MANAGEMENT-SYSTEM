@@ -1,7 +1,6 @@
 from django import forms
 from .models import NurseStation
 
-
 class NurseStationForm(forms.ModelForm):
     class Meta:
         model = NurseStation
@@ -24,11 +23,11 @@ class NurseStationForm(forms.ModelForm):
             'BP': 'BP', 
             'temperature': 'temperature',
         }
-        widget = {
+        widgets = {
             'patient': forms.Select(attrs={'class': 'form-control'}), 
             'doctor': forms.Select(attrs={'class': 'form-control'}), 
             'type_of_service': forms.Select(attrs={'class': 'form-control'}),
-            'date_of_appointment': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime'}), 
+            'date_of_appointment': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),  # Change widget to DateTimeInput and type to datetime-local
             'status_of_appointment': forms.Select(attrs={'class': 'form-control'}), 
             'reason_of_appointment': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'eg: headache, cough'}), 
             'SPO2': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}), 

@@ -52,6 +52,9 @@ INSTALLED_APPS = [
     'humanresource', #human resource department
     'nursestation',  #nurse appointment module
     'services', #adding services and prices
+    'consultingroom', #adding consultingroom
+    
+    
   
     #apps and framworks used
     'datetimepicker',

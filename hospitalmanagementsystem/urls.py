@@ -11,6 +11,7 @@ urlpatterns = [
     path('humanresource/', include('humanresource.urls')),
     path('nursestation/', include('nursestation.urls')),
     path('services/', include('services.urls')),
+    path('consultingroom/', include('consultingroom.urls')),
     
     
     path('admin_tools_stats/', include('admin_tools_stats.urls')), #for django-admin chart view

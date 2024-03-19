@@ -5,6 +5,7 @@ from .views import download_data
 
 urlpatterns = [
     
+   path('outpatient-report', views.outpatient_report, name='outpatient-report'),
     path('add-service-request/<int:id>/', views.add_service_request, name='add_service_request'),
     path('download/<str:format>/', download_data, name='download_data'), #download data url
     path('<int:id>', views.view_patient, name='view-patient'),

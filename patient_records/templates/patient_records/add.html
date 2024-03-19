@@ -6,14 +6,199 @@ load widget_tweaks %} {% block body %}
     <h2 class="text-2xl font-bold mb-4">
       <i class="fas fa-pen-square text-blue-500"></i> Add New Patient
     </h2>
-    <form id="add-patient-form" method="POST" class="grid grid-cols-4 gap-4">
+    <form id="add-patient-form" method="POST" class="grid grid-cols-2 gap-4">
       {% csrf_token %}
-      <table class="w-full">
-        <tr>
-          {{ form.as_p }}
-        </tr>
-      </table>
-      <div class="col-span-4 flex justify-end mt-6 space-x-3">
+      <div class="grid grid-cols-2 gap-4">
+        <!-- First column -->
+        <div class="form-group">
+          <label
+            for="{{ form.patient_id.id_for_label }}"
+            class="block font-semibold"
+            >Patient ID</label
+          >
+          {{ form.patient_id }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ form.first_name.id_for_label }}"
+            class="block font-semibold"
+            >First Name</label
+          >
+          {{ form.first_name }}
+        </div>
+        <!-- Add more fields here -->
+      </div>
+      <div class="grid grid-cols-1 gap-4">
+        <!-- Second column -->
+        <div class="form-group">
+          <label
+            for="{{ form.last_name.id_for_label }}"
+            class="block font-semibold"
+            >Last Name</label
+          >
+          {{ form.last_name }}
+        </div>
+
+        <!-- Add more fields here -->
+      </div>
+      <!--2nd set of 4 column rows-->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- First column -->
+        <div class="form-group">
+          <label
+            for="{{ form.other_names.id_for_label }}"
+            class="block font-semibold"
+            >Other names</label
+          >
+          {{ form.other_names }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.age.id_for_label }}" class="block font-semibold"
+            >Age</label
+          >
+          {{ form.age }}
+        </div>
+        <!-- Add more fields here -->
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Second column -->
+        <div class="form-group">
+          <label
+            for="{{ form.age_group.id_for_label }}"
+            class="block font-semibold"
+            >Age group</label
+          >
+          {{ form.age_group }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ form.NHIS_number.id_for_label }}"
+            class="block font-semibold"
+            >NHIS Numner</label
+          >
+          {{ form.NHIS_number }}
+        </div>
+        <!-- Add more fields here -->
+      </div>
+      <!--another set-->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- First column -->
+        <div class="form-group">
+          <label for="{{ form.phone.id_for_label }}" class="block font-semibold"
+            >Phone</label
+          >
+          {{ form.phone }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ form.gender.id_for_label }}"
+            class="block font-semibold"
+            >Gender</label
+          >
+          {{ form.gender }}
+        </div>
+        <!-- Add more fields here -->
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Second column -->
+        <div class="form-group">
+          <label
+            for="{{ form.client_type.id_for_label }}"
+            class="block font-semibold"
+            >Client type</label
+          >
+          {{ form.client_type }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ form.client_status.id_for_label }}"
+            class="block font-semibold"
+            >Client Status</label
+          >
+          {{ form.client_status }}
+        </div>
+        <!-- Add more fields here -->
+      </div>
+      <!--4th set of fields-->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group">
+          <label
+            for="{{ form.occupation.id_for_label }}"
+            class="block font-semibold"
+            >Occupation</label
+          >
+          {{ form.occupation }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ form.level_of_education.id_for_label }}"
+            class="block font-semibold"
+            >Level of education</label
+          >
+          {{ form.level_of_education }}
+        </div>
+        <!-- Add more fields here -->
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Second column -->
+        <div class="form-group">
+          <label
+            for="{{ form.address.id_for_label }}"
+            class="block font-semibold"
+            >Address</label
+          >
+          {{ form.address }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ form.date_of_visit.id_for_label }}"
+            class="block font-semibold"
+            >Date of Visit</label
+          >
+          {{ form.date_of_visit }}
+        </div>
+      </div>
+      <!--5th set of fields-->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group">
+          <label
+            for="{{ form.name_of_guardian.id_for_label }}"
+            class="block font-semibold"
+            >Name of guardian</label
+          >
+          {{ form.name_of_guardian }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ form.relation_with_guardian.id_for_label }}"
+            class="block font-semibold"
+            >Relation with guardian</label
+          >
+          {{ form.relation_with_guardian }}
+        </div>
+        <!-- Add more fields here -->
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Second column -->
+        <div class="form-group">
+          <label
+            for="{{ form.contact_of_guardian.id_for_label }}"
+            class="block font-semibold"
+            >Contact of Guardian</label
+          >
+          {{ form.contact_of_guardian }}
+        </div>
+        <!--<div class="form-group">
+          <label
+            for="{{ form.date_of_visit.id_for_label }}"
+            class="block font-semibold"
+            >Date of Visit</label
+          >
+          {{ form.date_of_visit }}
+        </div>-->
+      </div>
+
+      <div class="col-span-2 flex justify-end mt-6 space-x-3">
         <button
           id="submit-btn"
           type="submit"
@@ -24,11 +209,11 @@ load widget_tweaks %} {% block body %}
         <a
           href="{% url 'view_all_patients' %}"
           class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          >Cancel</a
         >
+          Cancel
+        </a>
       </div>
     </form>
   </div>
 </div>
-
 {% endblock %}

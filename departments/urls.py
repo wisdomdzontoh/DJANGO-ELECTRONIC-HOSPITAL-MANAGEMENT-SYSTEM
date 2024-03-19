@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     path('departments/edit/<int:id>/', views.edit, name='edit-department'),
-     path('departments/<int:id>/delete/', views.delete_department, name='departments/delete'),
+    path('departments/<int:id>/delete/', views.delete_department, name='departments/delete'),
     path('add/', views.add_department, name='add-department'),
     path('view-all/', views.view_all_departments, name='view-all'),
     path('', views.index, name="departments"),  # Added URL pattern for index view
