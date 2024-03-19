@@ -1,10 +1,75 @@
-<!-- add.html -->
 {% extends 'patient_records/base.html' %} {% load static tailwind_tags %} {%
 load widget_tweaks %} {% block body %}
+
+<!--PATIENT PROFILE-->
+
+<!--PATIENT PROFILE CARD-->
+<div
+  class="container mx-auto mt-8 px-4 bg-white rounded-xl shadow-md overflow-hidden"
+>
+  <div class="md:flex">
+    <div class="md:flex-shrink-0">
+      <img
+        class="h-48 w-full object-cover md:w-48"
+        src="/static/images/user.png"
+        alt="Patient Image"
+      />
+    </div>
+
+    <div class="p-8 md:grid grid-cols-2 gap-x-4">
+      <div class="text-gray-900">
+        <div
+          class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
+        >
+          Patient ID:
+          <strong class="text-2xl">{{ patient_record.patient_id }}</strong>
+        </div>
+        <div class="mt-2 text-3xl font-bold">
+          {{ patient_record.first_name }} {{ patient_record.last_name }}
+        </div>
+        <div class="mt-2 text-gray-600">
+          Last Date of visit: {{ patient_record.date_of_visit }}
+        </div>
+        <div class="mt-2 text-gray-600">
+          <span class="font-bold">Address:</span> {{ patient_record.address }}
+        </div>
+        <div class="mt-2 text-gray-600">
+          <span class="font-bold">Phone:</span> {{ patient_record.phone }}
+        </div>
+        <div class="mt-2 text-gray-600">
+          <span class="font-bold">Age:</span> {{ patient_record.age }}
+        </div>
+        <div class="mt-2 text-gray-600">
+          <span class="font-bold">Address:</span> {{ patient_record.address }}
+        </div>
+        <div class="mt-2 text-gray-600">
+          <span class="font-bold">Gender:</span> {{ patient_record.gender }}
+        </div>
+      </div>
+      <div class="col-span-4 flex justify-end mt-6 space-x-3">
+        <a
+          href="#"
+          class="bg-blue-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
+        >
+          Edit
+        </a>
+        <a
+          href="{% url 'view_all_patients' %}"
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Go back
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--ADD DIAGNOSIS-->
+
 <div class="container mx-auto mt-8">
   <div class="card bg-white rounded-lg shadow-md p-8">
     <h2 class="text-2xl font-bold mb-4">
-      <i class="fas fa-pen-square text-blue-500"></i> Update Patient Records
+      <i class="fas fa-pen-square text-blue-500"></i> Add New Patient
     </h2>
     <form id="add-patient-form" method="POST" class="grid grid-cols-2 gap-4">
       {% csrf_token %}
@@ -189,13 +254,13 @@ load widget_tweaks %} {% block body %}
           {{ form.contact_of_guardian }}
         </div>
         <!--<div class="form-group">
-            <label
-              for="{{ form.date_of_visit.id_for_label }}"
-              class="block font-semibold"
-              >Date of Visit</label
-            >
-            {{ form.date_of_visit }}
-          </div>-->
+                <label
+                  for="{{ form.date_of_visit.id_for_label }}"
+                  class="block font-semibold"
+                  >Date of Visit</label
+                >
+                {{ form.date_of_visit }}
+              </div>-->
       </div>
 
       <div class="col-span-2 flex justify-end mt-6 space-x-3">
@@ -204,7 +269,7 @@ load widget_tweaks %} {% block body %}
           type="submit"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          Update
+          Add
         </button>
         <a
           href="{% url 'view_all_patients' %}"

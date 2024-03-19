@@ -32,5 +32,5 @@ def appointment_confirmation(request):
 #VIEW ALL APPOINTMENTS
 @login_required(login_url="authentication:my-login")
 def view_appointments(request):
-    nursestations = NurseStation.objects.filter(doctor=request.user).order_by('-date_of_appointment')
+    nursestations = NurseStation.objects.order_by('-date_of_appointment').all()
     return render(request, 'nursestation/view_appointments.html', {'nursestations': nursestations})

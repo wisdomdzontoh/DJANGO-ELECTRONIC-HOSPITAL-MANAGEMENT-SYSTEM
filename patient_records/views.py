@@ -14,7 +14,6 @@ import xlwt  # For Excel format
 from django.http import HttpResponse
 from django.utils.crypto import get_random_string
 from .models import PatientRecord, ServiceRequest
-from .models import PatientRecord
 from django.db.models import Count
 from django.db import connection
 from django.db import OperationalError

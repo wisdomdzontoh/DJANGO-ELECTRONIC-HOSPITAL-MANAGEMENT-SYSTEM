@@ -8,18 +8,18 @@ class PatientRecord(models.Model):
     ]
 
     AGE_GROUP_CHOICES = [
-        ('0-28', '0-28 days'),
-        ('1-11', '1-11 months'),
-        ('1-4', '1-4 years'),
-        ('5-9', '5-9 years'),
-        ('10-14', '10-14 years'),
-        ('15-17', '15-17 years'),
-        ('18-19', '18-19 years'),
-        ('20-34', '20-34 years'),
-        ('35-49', '35-49 years'),
-        ('50-59', '50-59 years'),
-        ('60-69', '60-69 years'),
-        ('70+', '70 yrs & Above'),
+        ('0-28 days', '0-28 days'),
+        ('1-11 months', '1-11 months'),
+        ('1-4 years', '1-4 years'),
+        ('5-9 years', '5-9 years'),
+        ('10-14 years', '10-14 years'),
+        ('15-17 years', '15-17 years'),
+        ('18-19 years', '18-19 years'),
+        ('20-34 years', '20-34 years'),
+        ('35-49 years', '35-49 years'),
+        ('50-59 years', '50-59 years'),
+        ('60-69 years', '60-69 years'),
+        ('70+ yrs & Above', '70 yrs & Above'),
     ]
     
     CLIENT_TYPE_CHOICES = [

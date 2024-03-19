@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'nursestation',  #nurse appointment module
     'services', #adding services and prices
     'consultingroom', #adding consultingroom
+    'conditions', #adding conditions 
     
     
   
