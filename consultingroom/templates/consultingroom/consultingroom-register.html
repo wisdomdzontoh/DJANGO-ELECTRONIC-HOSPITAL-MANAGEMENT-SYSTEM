@@ -294,4 +294,13 @@ load widget_tweaks %} {% block body %}
   </div>
 </div>
 
+<script>
+  $(document).ready(function () {
+    $("#id_patient").select2();
+    $("#id_provisional_diagnosis").select2();
+    $("#id_principal_diagnosis").select2();
+    $("#id_additional_diagnosis").select2();
+    $("#id_lab_patient").select2();
+  });
+</script>
 {% endblock %}
