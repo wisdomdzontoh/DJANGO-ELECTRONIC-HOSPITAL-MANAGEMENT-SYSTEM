@@ -14,7 +14,7 @@ class NurseStation(models.Model):
     patient = models.ForeignKey(PatientRecord, on_delete=models.CASCADE)
     doctor = models.ForeignKey(User, on_delete=models.CASCADE)
     type_of_service = models.ForeignKey(Services, on_delete=models.CASCADE)
-    date_of_appointment = models.DateTimeField()  
+    date_of_appointment = models.DateTimeField()
     reason_of_appointment = models.TextField(max_length=255, default="none")
     appointment_created_at = models.DateTimeField(auto_now_add=True)
     SPO2 = models.CharField(max_length=50, default="none")
