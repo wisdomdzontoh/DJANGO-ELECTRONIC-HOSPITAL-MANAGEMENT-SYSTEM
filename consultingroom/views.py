@@ -17,7 +17,14 @@ def index(request):
 def patient_page(request, patient_id):
     patient_record = get_object_or_404(PatientRecord, patient_id=patient_id)
     # Render patient page with CRUD functionalities
-    return render(request, 'consultingroom/patient_page.html', {'patient_record': patient_record})
+
+    
+    context = {
+        'patient_record': patient_record,
+        
+    }
+    
+    return render(request, 'consultingroom/patient_page.html', context)
 
 
 # PATIENT page to perform crud operations
@@ -28,6 +35,16 @@ def search_patient(request):
             return redirect('patient_page', patient_id=patient_id)
     return render(request, 'consultingroom/search_patient.html')
 
+
+def patient_view_profile(request, patient_id):
+    # Retrieve patient record based on patient_id
+    patient_record = get_object_or_404(PatientRecord, patient_id=patient_id)
+    
+    # Fetch all diagnosis records related to the patient
+    patient_record = PatientRecord.objects.filter(patient_record=patient_record)
+    
+    # Render patient page template with patient record and diagnosis records
+    return render(request, 'consultingroom/patient_profile.html', {'patient_record': patient_record, 'patient_record': patient_record})
 
 
 # VIEW ALL MY APPOINTMENTS

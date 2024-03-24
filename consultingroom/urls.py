@@ -3,6 +3,7 @@ from authentication import views as auth_views
 from . import views
 
 urlpatterns = [
+    #path('patient/<str:patient_id>/', views.patient_view_profile, name='patient-view-profile'),
     path('search_patient/', views.search_patient, name='search_patient'),
     path('patient/<str:patient_id>/', views.patient_page, name='patient_page'),
 
