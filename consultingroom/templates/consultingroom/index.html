@@ -8,6 +8,11 @@
   <button
     class="active tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-indigo-400 bg-purple-400"
   >
+    <a href="{% url 'search_patient' %}">Login to patient page</a>
+  </button>
+  <button
+    class="active tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-indigo-400 bg-purple-400"
+  >
     <a href="{% url 'view-my-appointments' %}">View New appointments</a>
   </button>
   <button
@@ -19,11 +24,6 @@
     class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
   >
     <a href="{% url 'conditions' %}">Add morbidity Conditions</a>
-  </button>
-  <button
-    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
-  >
-    <a href="#">Statistics</a>
   </button>
 </div>
 

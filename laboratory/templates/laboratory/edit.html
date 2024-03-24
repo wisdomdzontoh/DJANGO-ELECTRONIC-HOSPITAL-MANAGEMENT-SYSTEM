@@ -1,0 +1,85 @@
+{% extends 'patient_records/base.html' %} {% block body %}
+
+<h2 class="text-2xl font-bold mb-4 text-center">Add Test types here</h2>
+<!--Tabs navigation-->
+<div class="flex flex-wrap justify-center gap-1 mb-4 w-full">
+  <button
+    class="active tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-indigo-400 bg-purple-400"
+  >
+    <a href="{% url 'view-all-tests' %}">View all Test types</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-blue-400"
+  >
+    <a href="{% url 'add-test-type' %}">Add new conditions</a>
+  </button>
+  <button
+    class="tablinks tab-btn p-4 rounded-lg text-gray-700 font-bold w-80 hover:bg-green-600 border-gray-400 bg-purple-400"
+  >
+    <a href="#">Statistics</a>
+  </button>
+</div>
+
+<div class="container mx-auto mt-8">
+  <div class="card bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold mb-4">
+      <i class="fas fa-calendar-plus text-blue-500"></i> Book New Appointment
+    </h2>
+
+    <form id="book-appointment-form" method="POST">
+      {% csrf_token %}
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Patient Information -->
+        <div class="form-group">
+          <label
+            for="{{ form.name_of_test.id_for_label }}"
+            class="block font-semibold"
+            >Name of Test type</label
+          >
+          {{ form.name_of_test }}
+        </div>
+        <!-- Doctor -->
+        <div class="form-group">
+          <label
+            for="{{ form.type_of_test.id_for_label }}"
+            class="block font-semibold"
+            >Test of test</label
+          >
+          {{ form.type_of_test }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ form.description.id_for_label }}"
+            class="block font-semibold"
+            >Description of test</label
+          >
+          {{ form.description }}
+        </div>
+      </div>
+      <div class="flex justify-end mt-6 space-x-3">
+        <button
+          id="submit-btn"
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          update test type
+        </button>
+        <a
+          href="view-all-conditions"
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#id_patient").select2();
+    $("#id_doctor").select2();
+    $("#id_type_of_service").select2();
+  });
+</script>
+{% endblock %}

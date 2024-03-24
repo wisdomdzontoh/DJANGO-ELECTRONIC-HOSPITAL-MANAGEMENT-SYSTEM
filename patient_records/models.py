@@ -51,6 +51,23 @@ class PatientRecord(models.Model):
         ('other', 'other'),   
     ]
     
+    MARITAL_STATUS_CHOICES = [
+        ('single', 'single'),
+        ('married', 'married'),
+        ('divorced', 'divorced'), 
+        ('widow', 'widow'),
+        ('widower', 'widower'),
+        ('other', 'other'),   
+    ]
+    
+    AGE_TYPE_CHOICES = [
+        ('days', 'days'),
+        ('months', 'months'),
+        ('years', 'years'),
+        
+    ]
+    
+    
     EDUCATION_CHOICES = [
         ('no formal education', 'no formal education'),
         ('primary', 'primary'),
@@ -65,7 +82,8 @@ class PatientRecord(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     other_names = models.CharField(max_length=50, default="none")
-    age = models.FloatField()
+    age = models.IntegerField()
+    age_type = models.CharField(max_length=20, choices=AGE_TYPE_CHOICES, default="none")
     phone = models.CharField(max_length=50)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     age_group = models.CharField(max_length=20, choices=AGE_GROUP_CHOICES)
@@ -74,6 +92,7 @@ class PatientRecord(models.Model):
     client_status = models.CharField(max_length=20, choices=CLIENT_STATUS_CHOICES)
     occupation = models.CharField(max_length=50, choices=OCCUPATION_CHOICES)
     level_of_education = models.CharField(max_length=50, choices=EDUCATION_CHOICES, default="none")
+    marital_status = models.CharField(max_length=50, choices=MARITAL_STATUS_CHOICES, default="none")
     address = models.CharField(max_length=50, default="none")
     date_of_visit = models.DateField()
     name_of_guardian = models.CharField(max_length=50, default="none")
@@ -81,7 +100,7 @@ class PatientRecord(models.Model):
     contact_of_guardian = models.CharField(max_length=50, default="none")
 
     def __str__(self):
-        return f'{self.patient_id} - {self.last_name} {self.first_name}'
+        return f'{self.patient_id} - {self.last_name} {self.first_name} {self.other_names}'
 
 
 # SERVICE REQUESTS

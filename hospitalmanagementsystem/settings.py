@@ -54,19 +54,22 @@ INSTALLED_APPS = [
     'services', #adding services and prices
     'consultingroom', #adding consultingroom
     'conditions', #adding conditions 
+    'laboratory',  #laboratory app
     
     
   
-    #apps and framworks used
+    #apps and frameworks used
     'datetimepicker',
     'widget_tweaks', #widget tweaks
-    'crispy_forms', #crispy forms
+    'crispy_forms', #for making forms more user friendly
+    'bootstrap4',
     'tailwind', #tailwind library
     'theme', #name of theme library
     'django_browser_reload' #auto reload  page when changes are made to files 
     
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 
@@ -167,5 +170,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 

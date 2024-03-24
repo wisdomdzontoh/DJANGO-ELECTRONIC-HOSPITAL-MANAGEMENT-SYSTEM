@@ -22,226 +22,244 @@ load widget_tweaks %} {% block body %}
           class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
         >
           Patient ID:
-          <strong class="text-2xl">{{ patient_record.patient }}</strong>
+          <strong class="text-2xl">{{ patient_record.patient_id }}</strong>
+        </div>
+        <strong class="text-2xl text-green-700">{{ patient_record.first_name }} {{ patient_record.last_name }}</strong>
+        <div
+          class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
+        >
+          Doctor Assigned to: {{ appointment.doctor }}
         </div>
         <div
           class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
         >
-          Doctor Assigned to: {{ patient_record.doctor }}
+          Gender: {{ patient_record.gender }}
         </div>
-        <div class="mt-2 text-gray-600">
-          Last Date of Appointment: {{ patient_record.date_of_appointment }}
-        </div>
-        <div class="mt-2 text-gray-600">
-          <span class="font-bold">Status of appointment:</span> {{
-          patient_record.status_of_appointment }}
-        </div>
-        <div class="mt-2 text-gray-600">
-          <span class="font-bold">Phone:</span> {{ patient_record.phone }}
-        </div>
-        <div class="mt-2 text-gray-600">
-          <span class="font-bold">Age:</span> {{ patient_record.age }}
-        </div>
-        <div class="mt-2 text-gray-600">
-          <span class="font-bold">Address:</span> {{ patient_record.address }}
-        </div>
-        <div class="mt-2 text-gray-600">
-          <span class="font-bold">Gender:</span> {{ patient_record.gender }}
-        </div>
-      </div>
-      <div class="col-span-4 flex justify-end mt-6 space-x-3">
-        <a
-          href="#"
-          class="bg-blue-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
-          >Edit</a
+        <div
+          class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
         >
-        <a
-          href="{% url 'view-my-appointments' %}"
-          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          >Go back</a
+          Age: {{ patient_record.age }} {{ patient_record.age_type }}
+        </div>
+        <div
+          class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
         >
+          Client Status: {{ patient_record.client_status }}
+        </div>
+        <div
+          class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
+        >
+          Date of last visit: {{ patient_record.date_of_visit }}
+        </div>
+        <div
+          class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
+        >
+          NHIS Number: {{ patient_record.NHIS_number }}
+        </div>
+        <div
+          class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
+        >
+          Client type: {{ patient_record.client_type }}
+        </div>
+        
+        <!-- Other patient details -->
       </div>
+      <a
+        href="{% url 'edit' patient_record.id %}"
+        class="text-blue-600 hover:text-blue-900 mr-2"
+        ><i class="fa-solid fa-pen-to-square fa-2x"></i>
+      </a>
+      <a
+          href="{% url 'view-patient' patient_record.id %}"
+          class="text-indigo-600 hover:text-indigo-900 mr-2"
+          ><i class="fa-solid fa-circle-info fa-2x"></i
+        ></a>
+      <!-- Edit and Go back buttons -->
     </div>
+    <div
+          class="uppercase tracking-wide text-sm text-indigo-600 font-semibold"
+        >
+          SPO2: {{ appointment.SPO2 }}
+        </div>
   </div>
+  
 </div>
 
 <!-- ADD DIAGNOSIS AND LAB TESTS -->
 
 <div class="container mx-auto mt-8">
   <div class="card bg-white rounded-lg shadow-md p-8">
+    <!-- Diagnosis form -->
     <h2 class="text-2xl font-bold mb-4">
       <i class="fas fa-pen-square text-blue-500"></i> Add New Diagnosis
     </h2>
     <form id="add-diagnosis-form" method="POST" class="grid grid-cols-2 gap-4">
       {% csrf_token %}
       <div class="grid grid-cols-2 gap-4">
-        <!-- First column -->
+        {{ diagnosis_form.non_field_errors }}
         <div class="form-group">
-          <label
-            for="{{ diagnosis_form.patient.id_for_label }}"
-            class="block font-semibold"
-            >Patient ID</label
+          <label for="id_date_of_diagnosis" class="block font-semibold"
+            >Date of diagnosis</label
           >
-          {{ diagnosis_form.patient }}
+          {{ diagnosis_form.date_of_diagnosis }}
         </div>
-      </div>
-      <div class="form-group">
-        <label
-          for="{{ diagnosis_form.date_of_diagnosis.id_for_label }}"
-          class="block font-semibold"
-          >Date of diagnosis</label
-        >
-        {{ diagnosis_form.date_of_diagnosis }}
-      </div>
-      <div class="grid grid-cols-1 gap-4">
+        <!-- Add other diagnosis form fields here -->
         <div class="form-group">
-          <label
-            for="{{ diagnosis_form.pregnant_patient.id_for_label }}"
-            class="block font-semibold"
-            >Pregnant patient?</label
+          <label for="id_pregnant_patient" class="block font-semibold"
+            >Is patient pregnant</label
           >
           {{ diagnosis_form.pregnant_patient }}
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-4">
+      <div class="form-group">
+        <label for="id_provisional_diagnosis" class="block font-semibold"
+          >Provisional diagnosis</label
+        >
+        {{ diagnosis_form.provisional_diagnosis }}
+      </div>
+      <!--another set-->
+      <div class="grid grid-cols-2 gap-4">
         <div class="form-group">
-          <label
-            for="{{ diagnosis_form.provisional_diagnosis.id_for_label }}"
-            class="block font-semibold"
-            >Provisional diagnosis?</label
+          <label for="id_age" class="block font-semibold">Age</label>
+          {{ diagnosis_form.age }}
+        </div>
+        <!-- Add other diagnosis form fields here -->
+        <div class="form-group">
+          <label for="id_age_type" class="block font-semibold"
+            >Age In days/months/years</label
           >
-          {{ diagnosis_form.provisional_diagnosis }}
+          {{ diagnosis_form.age_type }}
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-4">
+      <div class="form-group">
+        <label for="id_age_group" class="block font-semibold">Age groups</label>
+        {{ diagnosis_form.age_group }}
+      </div>
+      <!--another set-->
+      <div class="grid grid-cols-2 gap-4">
         <div class="form-group">
-          <label
-            for="{{ diagnosis_form.principal_diagnosis.id_for_label }}"
-            class="block font-semibold"
+          <label for="id_principal_diagnosis" class="block font-semibold"
             >Principal diagnosis</label
           >
           {{ diagnosis_form.principal_diagnosis }}
         </div>
-      </div>
-      <div class="grid grid-cols-1 gap-4">
+        <!-- Add other diagnosis form fields here -->
         <div class="form-group">
           <label
-            for="{{ diagnosis_form.principal_diagnosis_status_of_diagnosis.id_for_label }}"
+            for="id_principal_diagnosis_status_of_diagnosis"
             class="block font-semibold"
             >Status of Principal diagnosis</label
           >
           {{ diagnosis_form.principal_diagnosis_status_of_diagnosis }}
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-4">
-        <div class="form-group">
-          <label
-            for="{{ diagnosis_form.additional_diagnosis.id_for_label }}"
-            class="block font-semibold"
-            >Additional Diagnosis</label
-          >
-          {{ diagnosis_form.additional_diagnosis }}
-        </div>
+      <div class="form-group">
+        <label for="id_additional_diagnosis" class="block font-semibold"
+          >Additional diagnosis</label
+        >
+        {{ diagnosis_form.additional_diagnosis }}
       </div>
-      <div class="grid grid-cols-1 gap-4">
+      <!--another set-->
+      <div class="grid grid-cols-2 gap-4">
         <div class="form-group">
           <label
-            for="{{ diagnosis_form.additional_diagnosis_status_of_diagnosis.id_for_label }}"
+            for="id_additional_diagnosis_status_of_diagnosis"
             class="block font-semibold"
-            >Status of Additional Diagnosis</label
+            >Status of additional diagnosis</label
           >
           {{ diagnosis_form.additional_diagnosis_status_of_diagnosis }}
         </div>
-      </div>
-      <div class="grid grid-cols-1 gap-4">
+        <!-- Add other diagnosis form fields here -->
         <div class="form-group">
-          <label
-            for="{{ diagnosis_form.other_diagnosis.id_for_label }}"
-            class="block font-semibold"
-            >Other Diagnosis</label
+          <label for="id_other_diagnosis" class="block font-semibold"
+            >Other diagnosis not listed</label
           >
           {{ diagnosis_form.other_diagnosis }}
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-4">
-        <div class="form-group">
-          <label
-            for="{{ diagnosis_form.other_diagnosis_status_of_diagnosis.id_for_label }}"
-            class="block font-semibold"
-            >Status of Other Diagnosis</label
+      <div class="form-group">
+        <label
+          for="id_other_diagnosis_status_of_diagnosis"
+          class="block font-semibold"
+          >Status of additional Diagnosis</label
+        >
+        {{ diagnosis_form.other_diagnosis_status_of_diagnosis }}
+      </div>
+      <div class="form-group">
+        <label for="id_clinical_notes" class="block font-semibold"
+          >Clinical Notes</label
+        >
+        {{ diagnosis_form.clinical_notes }}
+      </div>
+        <div class="col-span-2">
+          <button
+            type="submit" name="diagnosis_submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-          {{ diagnosis_form.other_diagnosis_status_of_diagnosis }}
+            Add Diagnosis
+          </button>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-4">
-        <div class="form-group">
-          <label
-            for="{{ diagnosis_form.clinical_notes.id_for_label }}"
-            class="block font-semibold"
-            >Add clinical notes here</label
-          >
-          {{ diagnosis_form.clinical_notes }}
-        </div>
-      </div>
-      <!-- Diagnosis fields -->
+      
+    </form>
+  </div>
 
-      <!-- ... -->
-      <!-- Lab Test fields -->
-      <div class="container mx-auto mt-8">
-        <div class="card bg-white rounded-lg shadow-md p-8">
-          <h2 class="text-2xl font-bold mb-4">
-            <i class="fas fa-pen-square text-blue-500"></i> Add NewLab request
-          </h2>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="form-group">
-              <label
-                for="{{ lab_test_form.lab_patient.id_for_label }}"
-                class="block font-semibold"
-                >Patient Name & ID</label
-              >
-              {{ lab_test_form.lab_patient }}
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="form-group">
-              <label
-                for="{{ lab_test_form.type_of_lab_request.id_for_label }}"
-                class="block font-semibold"
-                >Type of lab request</label
-              >
-              {{ lab_test_form.type_of_lab_request }}
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="form-group">
-              <label
-                for="{{ lab_test_form.notes.id_for_label }}"
-                class="block font-semibold"
-                >Notes for reference</label
-              >
-              {{ lab_test_form.notes }}
-            </div>
-          </div>
+
+
+<div class="container mx-auto mt-8">
+  <div class="card bg-white rounded-lg shadow-md p-8">
+    <h3 class="text-xl font-bold mb-4">Lab Requests</h3>
+    
+      <!-- Lab test table content -->
+      <form id="add-diagnosis-form" method="POST" class="grid grid-cols-2 gap-4">
+        {% csrf_token %}
+        {{ lab_test_form.non_field_errors }}
+
+        <div class="form-group">
+          <label
+            for="{{ lab_test_form.type_of_lab_request.id_for_label }}"
+            class="block font-semibold"
+            >Type of lab request</label
+          >
+          {{ lab_test_form.lab_patient }}
         </div>
-      </div>
+        
+        <div class="form-group">
+          <label
+            for="{{ lab_test_form.type_of_lab_request.id_for_label }}"
+            class="block font-semibold"
+            >Type of lab request</label
+          >
+          {{ lab_test_form.type_of_lab_request }}
+        </div>
+        <div class="form-group">
+          <label
+            for="{{ lab_test_form.notes.id_for_label }}"
+            class="block font-semibold"
+            >Additonal notes</label
+          >
+          {{ lab_test_form.notes }}
+        </div>
+
       <div class="col-span-2 flex justify-end mt-6 space-x-3">
         <button
-          type="submit"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Add
-        </button>
+        type="submit" name="lab_test_submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Request lab test
+      </button>
         <a
           href="{% url 'view_all_patients' %}"
           class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           >Cancel</a
         >
       </div>
-    </form>
+    </div>
   </div>
-</div>
-
 <!-- Lab Tests Table -->
+
+<div class="container mx-auto mt-8">
+  <div class="card bg-white rounded-lg shadow-md p-8">
+    <h3 class="text-xl font-bold mb-4">Lab Requests</h3>
 <div class="container mx-auto mt-8">
   <div class="card bg-white rounded-lg shadow-md p-8">
     <h3 class="text-xl font-bold mb-4">Lab Requests</h3>
@@ -296,11 +314,18 @@ load widget_tweaks %} {% block body %}
 
 <script>
   $(document).ready(function () {
+    // Initialize select2 for patient and diagnosis selection
     $("#id_patient").select2();
     $("#id_provisional_diagnosis").select2();
     $("#id_principal_diagnosis").select2();
     $("#id_additional_diagnosis").select2();
     $("#id_lab_patient").select2();
+    $("#id_type_of_lab_request").select2();
+    $("#id_age_group").select2();
+
+
+
+    
   });
 </script>
 {% endblock %}

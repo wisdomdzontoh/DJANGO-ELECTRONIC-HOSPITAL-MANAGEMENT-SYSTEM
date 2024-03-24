@@ -1,0 +1,71 @@
+{% extends 'patient_records/base.html' %} {% block body %}
+<h2 class="text-2xl font-bold mb-4 text-center">
+  Welcome to the laboratory Department
+</h2>
+<!-- Dashboard Content -->
+<div class="container mx-auto mt-8 px-4">
+  <h2 class="text-2xl font-semibold mb-4">Dashboard Overview</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <!-- Patient Card -->
+    <div
+      class="bg-white p-4 rounded-md shadow-md flex items-center justify-between hover:bg-gray-100"
+    >
+      <div>
+        <i class="fa-solid fa-bed-pulse text-red-500 text-3xl"></i>
+        <h3 class="text-lg font-semibold mb-2">Add Test Types</h3>
+        <a
+          class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
+          href="#"
+          >Add</a
+        >
+      </div>
+    </div>
+    <!-- Doctor Card -->
+    <div
+      class="bg-white p-4 rounded-md shadow-md flex items-center justify-between hover:bg-gray-100"
+    >
+      <div>
+        <i class="fas fa-user-md text-green-500 text-3xl"></i>
+        <h3 class="text-lg font-semibold mb-2">View all Test Types</h3>
+        <a
+          class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
+          href="{% url 'view-all-tests' %}"
+          >View</a
+        >
+      </div>
+    </div>
+    <!-- Doctor Card -->
+    <div
+      class="bg-white p-4 rounded-md shadow-md flex items-center justify-between hover:bg-gray-100"
+    >
+      <div>
+        <i class="fas fa-user-md text-green-500 text-3xl"></i>
+        <h3 class="text-lg font-semibold mb-2">Add test types here</h3>
+        <a
+          class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
+          href="{% url 'add-test-type' %}"
+          >Add test type</a
+        >
+      </div>
+    </div>
+    <!-- Nurse Card -->
+    <div
+      class="bg-white p-4 rounded-md shadow-md flex items-center justify-between hover:bg-gray-100"
+    >
+      <div>
+        <i class="fas fa-user-nurse text-red-500 text-3xl"></i>
+        <h3 class="text-lg font-semibold mb-2">Add lab results for patients</h3>
+        <a
+          class="bg-purple-500 inline-block px-4 py-2 text-sm text-white rounded"
+          href="#"
+          >Add</a
+        >
+      </div>
+    </div>
+
+    <!-- JavaScript for Charts -->
+    <!-- JavaScript for Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </div>
+  {% endblock %}
+</div>

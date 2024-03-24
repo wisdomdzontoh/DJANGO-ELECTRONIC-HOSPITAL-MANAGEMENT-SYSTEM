@@ -13,6 +13,8 @@ urlpatterns = [
     path('services/', include('services.urls')),
     path('consultingroom/', include('consultingroom.urls')),
     path('conditions/', include('conditions.urls')),
+    path('laboratory/', include('laboratory.urls')),
+    
     
     
     path('admin_tools_stats/', include('admin_tools_stats.urls')), #for django-admin chart view

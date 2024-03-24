@@ -1,6 +1,7 @@
 from django import forms
 from .models import HumanResource
 from departments.models import Department  # Import the Department model from your department app
+from django.forms import DateInput
 
 class HumanResourceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -30,6 +31,6 @@ class HumanResourceForm(forms.ModelForm):
             'salary': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '200'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'john@gmail.com'}),
-            'date_of_appointment': forms.DateInput(),
+            'date_of_appointment': DateInput(attrs={'type': 'date'}),
             'image_of_staff': forms.FileInput(),
         }
