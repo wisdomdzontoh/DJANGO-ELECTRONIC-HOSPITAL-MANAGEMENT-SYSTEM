@@ -35,8 +35,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django_light', # for light theme
-    'admin_tools_stats',  # this must be BEFORE 'admin_tools' and 'django.contrib.admin'
-    'django_nvd3',
     
     'django.contrib.admin',
     'django.contrib.auth',
